@@ -1,0 +1,144 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html {
+	font-family: Roboto;
+}
+body {
+	background: #e5e5e5;
+	padding-bottom: 120px;
+}
+.container {
+	padding-top: 50px;
+}
+#face {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#face img {
+	width: 143px;
+	height: 143px;
+}
+.row {
+	padding-top: 50px;
+}
+.row .col-lg-7 input {
+	border: none;
+	border-bottom: 1px solid #c4c4c4;
+	color: #000;
+	width: 100%;
+}
+.row .col-lg-7 input:focus {
+	outline: none;
+} 
+.row .col-lg-12 {
+	display: flex;
+	justify-content: center;
+}
+.row .col-lg-7 textarea {
+	border: none;
+	border-bottom: 1px solid #c4c4c4;
+	width: 100%;
+	resize: none;
+	height: 26px;
+	font-family: Roboto;
+	font-size: 17px;
+}
+.row .col-lg-7 textarea:focus {
+	outline: none;
+}
+.row .col-lg-5 {
+	padding-left: 255px;
+}
+.row .col-lg-5 p {
+	font-family: Roboto;
+	font-size: 17px;
+}
+
+
+
+#menu {
+	display: flex;
+	justify-content: center;
+
+}
+#menu .row {
+	width: 800px;
+	position: fixed;
+	bottom: 0px;
+	padding: 10px 0px 5px 0px;
+	height: 70px;
+	background: #fff;
+	border: 1px solid #dbdbdb;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-around;
+	z-index: 999;
+}
+#menu .row div {
+	display: flex;
+	flex-direction: column;
+}
+#menu .row div .png {
+
+	width: 30px;
+	height: 30px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+#menu a img{
+	width: 30px;
+	height: 30px;
+	align-items: center;
+}
+.clr {
+	color: #878787;
+}
+.krug {
+	margin-bottom: 50px;
+}
+.clr i {
+	width: 50px;
+	height: 50px;
+}
+.lik span {
+	font-size: 15px;
+}
+.sin {
+	color: #0075e1;
+}
+.label span {
+	border: none;
+	color: #0075e1;
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: normal;
+	letter-spacing: 0.03em;
+	text-decoration: underline;
+}
+.label span:hover {
+	cursor: pointer;
+}
+.label i {
+	color: #7e7979;
+	font-family: Roboto;
+	font-style: italic;
+	font-weight: 200px;
+	font-size: 18px;
+	line-height: 22px;
+}
+.label {
+	margin-top: 5px;
+}
+.kot {
+	display: none;
+}
+.btn-primary {
+	padding: 5px 40px 5px 40px !important;
+	margin-top: 20px;
+}
+.thf {
+	height: 50px !important;
+}

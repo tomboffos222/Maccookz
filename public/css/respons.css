@@ -1,0 +1,363 @@
+@media (max-width: 720px){
+    #menu .row{
+        width: 100%;
+        left: 15px;
+        height: 80px;
+    }
+
+    #search{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .kenopka button{
+        width: 100%;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        padding: 5px 10px;
+        height: auto;
+    }
+    .col-lg-12 input{
+        width: 100%;
+    }
+    .kenopka{
+        margin-left: 10px;
+    }
+    .text p {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 10px;
+        height: auto;
+        line-height: 15px;
+        width: auto;
+
+    }
+    #suck{
+        padding-right: 0px;
+    }
+    .lik span{
+        font-size: 12px;
+    }
+    #suck .text h6{
+        width: auto;
+        font-family: Roboto;
+        font-weight: 700;
+        margin-bottom: 0px;
+        font-size: 14px;
+
+    }
+    #title{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    #title h1{
+        width: 100%;
+    }
+    #suck .text{
+        margin-left: 20px;
+    }
+    .face img{
+        width: 49px;
+        height: 49px;
+    }
+    .type{
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .intypes input{
+        width: 100%;
+    }
+    #fluid .intypes{
+        display: block;
+    }
+    .ip input, .too input{
+        width: 18px;
+    }
+    .touch .container{
+        max-width: 100% !important;
+    }
+    .choice{
+        flex-direction: row;
+
+
+    }
+    .choice .play{
+        width: 50%;
+        height: auto;
+    }
+
+    .choice .course{
+        width: 50%;
+        height: 150px;
+
+
+    }
+    .lessons{
+        padding-left: 15px;
+
+    }
+
+    .col-lg-4 .face{
+        width: 96px;
+        height: 96px;
+    }
+    #i8{
+        padding-left: 15px;
+    }
+    .info p{
+        width: 65%;
+        margin-bottom: 15px;
+        height: auto;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+    }
+    .public{
+        padding-left: 15px;
+
+    }
+    .public .row{
+        overflow-x: auto;
+        padding-right: 15px;
+    }
+    .count .col-6{
+        height: 200px;
+
+    }
+    .count .col-6 img{
+        height: auto;
+
+    }
+    .flex .seven{
+        width: 180px;
+        background-size: cover;
+        height: auto;
+        padding-bottom: 50px;
+
+    }
+    .editer .row .col-lg-5.col-5{
+        padding-left:20px;
+    }
+    .editer .row .col-lg-7.col-7{
+        padding-right: 20px;
+    }
+    .col-lg-4.col-7 img{
+        height: 250px;
+        width: 100%;
+    }
+    .col-5,.col-7{
+        height: 260px;
+    }
+    #loop img{
+        width: 100%;
+        height: 120px;
+    }
+    #loop img:nth-child(3),#loop img:nth-child(4){
+        display: none;
+    }
+    .count .col-lg-4{
+        height: auto;
+    }
+
+    .flex{
+        padding-right: 15px;
+    }
+    .public .col-lg-12 h3{
+        height: auto;
+        font-size: 16px;
+        padding-top: 0px;
+    }
+    .public .col-lg-12 h2{
+        height: auto;
+        font-size: 16px;
+        padding-top: 0px;
+
+
+    }
+    .flex .seven p{
+        width: auto;
+        height: auto;
+    }
+    .info h1{
+        font-size: 20px;
+    }
+    .info span{
+        font-size: 16px;
+
+    }
+    .info h1{
+        width: auto;
+    }
+    .info button{
+        width: 65%;
+    }
+    .infosub{
+        position: relative;
+        left:-32%;
+    }
+    .choice button p{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 17px;
+    }
+    .choice button img{
+        width: 40px;
+        height: 40px;
+    }
+
+    .row .col-6{
+        max-width: 48%;
+        padding: 10px;
+    }
+    .col-lg-3.col-6 p{
+        height: auto;
+    }
+    .col-lg-3.col-6{
+        height: auto;
+    }
+    #menu a img{
+        width: 25px;
+        height: 25px;
+    }
+    .course_author img{
+        width: 25px;
+        height: 25px;
+    }
+    .modal-dialog{
+        margin: .5rem !important;
+    }
+    .modaler input , .modaler select{
+        margin-bottom: 20px;
+
+    }
+}
+@media (min-width: 721px) {
+
+    .course_author img{
+        width: 50px;
+        height: 50px;
+    }
+    .course_author{
+        margin-right: 50px;
+    }
+    .modal-footer .d-flex{
+        justify-content: flex-start;
+    }
+
+
+}
+.course_cards .card.purchases{
+    padding:9px 13px;
+    background: rgba(0, 148, 232, 0.4);
+    width: 32%;
+}
+.flex.course_cards{
+    padding-right: 0px;
+}
+.course_cards .card:nth-child(2){
+    background: rgba(232, 83, 0, 0.4);
+}
+.course_cards .card:nth-child(2) .circle_blue{
+    background: #E85300;
+
+}
+.course_cards .card:nth-child(3){
+    background: rgba(88, 0, 232, 0.4);
+
+}
+.course_cards .card:nth-child(3) .circle_blue{
+    background: #5800E8;
+}
+
+.card.purchases .circle_blue{
+    width: 34px;
+    height: 34px;
+    background: #0094E8;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.course_cards .card h6 a{
+    font-size: 20px;
+    line-height: 23px;
+    text-decoration: underline;
+    color:#000;
+}
+.course_cards .card h3{
+    font-size: 33px;
+}
+.container_course{
+    background-color:transparent;
+}
+.container.container_course{
+    padding-bottom: 150px !important;
+}
+.mainer{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 15px;
+    flex-wrap: wrap;
+}
+.mainer .tabs_page .col-lg-4{
+    margin-top: 25px;
+}
+.mainer button.btn.btn-primary{
+    width: 25%;
+}
+.tabs_panel div{
+    font-size: 27px;
+    line-height: 33px;
+    font-weight: bold;
+    margin-right: 36px;
+    width: 100%;
+
+
+
+}
+
+.tabs_page{
+    width: 100%;
+}
+.tabs_panel{
+    display: flex;
+    width: 65%;
+    border-radius: 5px;
+    border: 1px solid #eee;
+
+    font-weight: 400;
+    padding-left: 5px;
+
+    justify-content: flex-start;
+    align-items: center;
+    overflow: scroll;
+}
+
+
+
+.online_translation div{
+    background: #3B3B3B;
+    height: 248px;
+    border-radius: 6px;
+    padding-bottom: 30px;
+    padding-top: 44px;
+    width: 411px;
+}
+.play button.btn-primary.btn{
+    width: 100%;
+}
+.tabs_page{
+    display: none;
+
+}
+.tabs_page.active{
+    display: block;
+}
+.profile-avatar{
+    border-radius: 50%;
+}
+.face{
+    background-image: none !important;
+}

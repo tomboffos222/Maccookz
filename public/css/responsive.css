@@ -1,0 +1,163 @@
+@media (max-width: 720px){
+    .content .row #opo .phone{
+        background-image: none;
+        background-color: #fff;
+        width: 100%;
+
+
+    }
+    body{
+        overflow: visible;
+
+    }
+    .obolochka{
+        overflow: visible;
+    }
+    .obolochka .row{
+        flex-direction: column-reverse;
+    }
+    #pop .links{
+        display: none;
+    }
+    #pop .study{
+        text-align: center;
+    }
+    #pop .study p{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 17px;
+        line-height: 21px;
+    }
+    #opo{
+        display: block;
+        padding: 0px 30px;
+        margin-bottom: 20px;
+    }
+    .container{
+        padding-bottom: 0px !important;
+    }
+    #fluid2{
+        height: auto;
+    }
+    .content .row #opo .phone{
+        margin-top: 10px;
+        padding-top: 15px;
+        top:0px;
+        height: auto;
+        margin-bottom: 0px;
+    }
+    .study h1{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 37px;
+        text-align: center;
+    }
+    .phone input{
+        width: 80%;
+    }
+    .d-phone{
+        display: block !important;
+
+    }
+    .desktop{
+        display: none;
+    }
+    .container{
+        overflow: visible;
+        overflow-x: hidden;
+        display: block;
+    }
+    #fluid2{
+        display: none;
+    }
+    #fluid{
+        display: block;
+    }
+    #fluid .regis{
+        width: 100%;
+        height: auto;
+        padding-bottom: 20px;
+
+    }
+    #fluid{
+        padding-top: 30px;
+    }
+    .stakk{
+        width: 100%;
+
+    }
+
+    .backgrounder{
+
+        background:#00000061  url("../images/sas.png");
+        background-size: cover;
+        height: 100%;
+    }
+    .backgrounder::before{
+        background:#00000061;
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        width: 100%;
+    }
+    .links a{
+        color:#fff;
+        font-size: 10px;
+        line-height: 12px;
+        text-align: center;
+    }
+    .links{
+        text-align: center;
+    }
+    .stakk p{
+        height: auto;
+    }
+    .stakk p a{
+        font-weight: 900;
+    }
+    h1.d-phone{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 26px;
+        line-height: 30px;
+        height: auto;
+        color:#000;
+        text-transform: uppercase;
+    }
+    .backgrounder .links{
+        margin-bottom: 25px;
+    }
+    body{
+
+    }
+
+    .new_container{
+        background: none !important;
+    }
+}
+@media (min-width: 721px) {
+    .desktop{
+        display: block;
+
+    }
+    .d-phone{
+        display: none ;
+    }
+    #pop .links{
+        position: relative;
+        top: 150px;
+        margin-right: 50px;
+    }
+    .content .row #opo .phone{
+        top:110px;
+        height: auto;
+    }
+    .new_container{
+        background: none !important;
+    }
+
+}

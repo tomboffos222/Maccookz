@@ -1,0 +1,136 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background: #e5e5e5;
+	padding-bottom: 150px;
+}
+.container {
+	max-width: 90% !important;
+	padding: 0 !important;
+}
+#title h1 {
+	width: 261px;
+	height: 36px;
+	font-family: 'Roboto';
+	font-weight: bold;
+	font-size: 31px;
+	line-height: 36px;
+	text-transform: uppercase;
+	color: #000;
+}
+#suck {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 0;
+	margin: 0;
+	margin-top: 30px;
+	padding-right: 100px;
+}
+.face img {
+	width: 88px;
+	height: 88px;
+}
+.text h6 {
+	width: 172px;
+	height: 25px;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	line-height: 25px;
+	text-transform: uppercase;
+	color: #000;
+	letter-spacing: 0.05em;
+}
+.text p {
+	width: 630px;
+	height: 25px;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	line-height: 25px;
+	letter-spacing: 0.05em;
+	color: #000;
+}
+.text span {
+	font-weight: normal;
+}
+.kenopka button {
+	width: 305px;
+	height: 57px;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	line-height: 25px;
+	letter-spacing: 0.05em;
+	color: #fff;
+	border-radius: 5px;
+	background: #0075e1;
+	border-color: transparent;
+}
+.text {
+	margin-left: 40px;
+}
+.kenopka {
+	margin-left: 120px;
+}
+#title {
+	padding: 0;
+	margin-top: 70px;
+	margin-bottom: 50px;
+}
+
+#menu {
+	display: flex;
+	justify-content: center;
+}
+#menu .row {
+	width: 800px;
+	position: fixed;
+	bottom: 0px;
+	padding: 10px 0px 5px 0px;
+	height: 70px;
+	background: #fff;
+	border: 1px solid #dbdbdb;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-around;
+}
+#menu .row div {
+	display: flex;
+	flex-direction: column;
+}
+#menu .row div .png {
+
+	width: 30px;
+	height: 30px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+#menu a img{
+	width: 30px;
+	height: 30px;
+	align-items: center;
+}
+.clr {
+	color: #878787;
+}
+.krug {
+	margin-bottom: 50px;
+}
+.clr i {
+	width: 50px;
+	height: 50px;
+}
+.lik span {
+	font-size: 15px;
+}
+.kok {
+	color: #0075e1;
+}
