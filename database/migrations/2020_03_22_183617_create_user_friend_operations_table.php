@@ -17,7 +17,7 @@ class CreateUserFriendOperationsTable extends Migration
             $table->id();
             $table->bigInteger('owner_id');
             $table->bigInteger('friend_id');
-
+            $table->string('status');
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('friend_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

@@ -19,6 +19,7 @@ class CreateWithdrawsTable extends Migration
             $table->string('bill')->nullable();
             $table->string('kaspy_number')->nullable();
             $table->bigInteger('course_id')->unsigned();
+            $table->string('status');
             $table->bigInteger('user_id')->unsigned();
 
 

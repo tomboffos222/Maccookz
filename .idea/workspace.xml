@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="cef30887-8bc6-4e66-9c61-2e3116428123" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_20_091256_create_courses_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_20_091256_create_courses_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_22_183617_create_user_friend_operations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_22_183617_create_user_friend_operations_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_24_090315_create_admins_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_24_090315_create_admins_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_25_072557_create_withdraws_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_25_072557_create_withdraws_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +183,7 @@
       <workItem from="1584785953160" duration="6833000" />
       <workItem from="1584889982619" duration="29487000" />
       <workItem from="1585040356297" duration="27381000" />
-      <workItem from="1585214435039" duration="115000" />
+      <workItem from="1585214435039" duration="704000" />
     </task>
     <servers />
   </component>
@@ -231,9 +235,9 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="385" y="210" key="run.anything.popup/0.0.1440.900@0.0.1440.900" timestamp="1585121880454" />
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1585214546741">
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1585215428809">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1585214546741" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1585215428809" />
   </component>
 </project>
