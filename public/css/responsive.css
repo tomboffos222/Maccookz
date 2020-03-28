@@ -5,6 +5,7 @@
         width: 100%;
 
 
+
     }
     body{
         overflow: visible;
@@ -148,7 +149,7 @@
         display: none ;
     }
     #pop .links{
-        position: relative;
+        position: static;
         top: 150px;
         margin-right: 50px;
     }
@@ -159,5 +160,19 @@
     .new_container{
         background: none !important;
     }
+    .container.new_container{
+        padding-bottom: 0px !important;
+    }
+    .content .row #opo .phone{
+        position: static !important;
+    }
+    .content .row #opo{
+        margin-top: 7.4%;
+    }
+   .container.backgrounder{
+       overflow-y: hidden;
+
+   }
+
 
 }

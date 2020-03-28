@@ -39,7 +39,7 @@
 					<h1>{{$course->title}}</h1>
 					<span>{{$course->description}}</span>
 
-                    <div class="text-center w-50 p-3 mt-3 mb-3" style="background: #3B3B3B;">
+                    <div class="text-center w-50 online_translation_one p-3 mt-3 mb-3" style="background: #3B3B3B;">
                         <img src="{{asset('images/tube.svg')}}" alt="" class="mb-4">
                         <h5 class="text-white text-center">
                             Онлайн трансляция <br>

@@ -104,32 +104,41 @@
 			<div class="linia"></div>
 			<div class="row">
                 @foreach($free_courses as $free_course)
-		        	<div class="col-lg-4 col-12" style="display: block;"  data-toggle="modal" data-target="#modalVideo_{{$free_course->id}}">
+                    <div class="col-lg-4 col-12 videoMainer" style="display: block;background-image: url('{!! $free_course->img_path !!}');"  data-toggle="modal" data-target="#modalVideo_{{$free_course->id}}">
+                        <div>
 
-                    <img src="{!! $free_course->img_path !!}" class="player_{{$free_course->id}} active" alt="" height="200" width="100%" style="width: 100%;height: 250px;    ">
-                    <a href="" style="font-size: 25px;color:#000;">{{$free_course->title}}</a>
+                            <a href="" style="font-size: 25px;color:#000;">{{$free_course->title}}</a>
 
 
-
-			</div>
+                        </div>
+                    </div>
+                    <style>
+                        #modalVideo_{{$free_course->id}} .modal-body{
+                            padding: 0px;
+                        }
+                    </style>
                     <div class="modal fade" id="modalVideo_{{$free_course->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
-                               <div class="modal-body">
-                                   <video controls="controls" style="width: 100%;height: 400px;">
-                                       <source src="{!! $free_course->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
-                                   </video>
-                               </div>
+                                <div class="modal-body">
+                                    <video controls="controls" style="width: 100%;height: 400px;">
+                                        <source src="{!! $free_course->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
+                                    </video>
+                                </div>
                                 <div class="modal-footer"  style="justify-content: flex-start">
 
-                                        <div class=" course_author">
-                                            <img src="{{asset('images/profile.svg')}}" alt="">
-                                        </div>
-                                        <div class="">
-                                            {{$free_course->name}}
-                                            <br>
-                                            {{$free_course->login}}
-                                        </div>
+                                    <div class=" course_author">
+                                        @if($user['avatar'] == null)
+                                            <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
+                                        @else
+                                            <img src="{!! $user->avatar !!}" alt="" class="profile-avatar face">
+                                        @endif
+                                    </div>
+                                    <div class="">
+                                        {{$free_course->name}}
+                                        <br>
+                                        {{$free_course->login}}
+                                    </div>
 
                                 </div>
                             </div>

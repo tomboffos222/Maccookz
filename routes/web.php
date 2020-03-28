@@ -14,13 +14,41 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (session()->has('user')){
+        return redirect()->route('Main');
+    }
+    else{
+        return view('welcome');
+    }
+
 });
 
 Route::get('/register/','UserController@Register')->name('Register');
 Route::get('/login/page', 'UserController@LoginPage')->name('LoginPage');
 Route::get('login/', 'UserController@Login')->name('Login');
+Route::get('/player', function () {
+    $user = session()->get('user');
+    $video = '/free_videos/19413.mp4';
+    $mime = "video/mp4";
+    $title = "Os Simpsons";
 
+    return view('player')->with(compact('video', 'mime', 'title','user'));
+});
+
+Route::get('/free_videos/{filename}', function ($filename) {
+    // Pasta dos videos.
+    $videosDir = public_path('/streams/');
+
+    if (file_exists($filePath = $videosDir."/".$filename)) {
+        $stream = new \App\Http\VideoStream($filePath);
+
+        return response()->stream(function() use ($stream) {
+            $stream->start();
+        });
+    }
+
+    return response("File doesn't exists", 404);
+});
 Route::middleware(['userCheck'])->group(function () {
     Route::get('edit/profile','UserController@EditProfile')->name('EditProfile');
     Route::get('my_course/{id?}','UserController@MyCourse')->name('MyCourse');

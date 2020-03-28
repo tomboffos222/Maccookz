@@ -111,12 +111,12 @@
                             <span>Видео не должен превышать 120 мб<br>Формат:MP4,WMV,MOV<br>Размер фона: 988 x 649 или 900 х 1023</span>
                             <input type="text" placeholder="Заголовок видео" name="title">
                             <label class="label">
-                                <i class="material-icons">Фон видео</i>
+                                <i class="material-icons">Видео</i>
                                 <span class="title">Добавить видео</span>
                                 <input type="file" class="kot" name="video">
                             </label>
                             <label class="label">
-                                <i class="material-icons">Файл не выбран</i>
+                                <i class="material-icons">Фоновая картина</i>
                                 <span class="title">Выбрать картинку</span>
                                 <input type="file" class="kot" name="img">
                             </label>

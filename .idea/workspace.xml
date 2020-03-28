@@ -2,12 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cef30887-8bc6-4e66-9c61-2e3116428123" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/VideoStream.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/player.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_20_091256_create_courses_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_20_091256_create_courses_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_22_183617_create_user_friend_operations_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_22_183617_create_user_friend_operations_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_24_090315_create_admins_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_24_090315_create_admins_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_03_25_072557_create_withdraws_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_03_25_072557_create_withdraws_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/myprofile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/myprofile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/respons.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/respons.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/vxod.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/vxod.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/add.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/add_course.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/add_course.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/course.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/course.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/editprofile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/editprofile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/main.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/main.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/my_course.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/my_course.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/myprofile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/myprofile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/search.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +199,8 @@
       <workItem from="1584785953160" duration="6833000" />
       <workItem from="1584889982619" duration="29487000" />
       <workItem from="1585040356297" duration="27381000" />
-      <workItem from="1585214435039" duration="704000" />
+      <workItem from="1585214435039" duration="2880000" />
+      <workItem from="1585221739710" duration="15180000" />
     </task>
     <servers />
   </component>
@@ -191,10 +208,14 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="320" y="115" key="#Options" timestamp="1584609649602">
+    <state x="320" y="115" key="#Deployment" timestamp="1585218826288">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="115" key="#Options/0.0.1440.900@0.0.1440.900" timestamp="1584609649602" />
+    <state x="320" y="115" key="#Deployment/0.0.1440.900@0.0.1440.900" timestamp="1585218826288" />
+    <state x="320" y="115" key="#Options" timestamp="1585218835727">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="320" y="115" key="#Options/0.0.1440.900@0.0.1440.900" timestamp="1585218835727" />
     <state x="430" y="260" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584618865743">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -207,14 +228,19 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="DiffContextDialog/0.0.1440.900@0.0.1440.900" timestamp="1584527052392" />
-    <state x="100" y="100" width="1240" height="700" key="DirDiffDialog" timestamp="1584526732524">
-      <screen x="0" y="23" width="1440" height="804" />
+    <state x="100" y="86" width="1240" height="784" key="DirDiffDialog" timestamp="1585218973341">
+      <screen x="0" y="23" width="1440" height="808" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="DirDiffDialog/0.23.1440.804@0.23.1440.804" timestamp="1584526732524" />
-    <state x="221" y="89" key="SettingsEditor" timestamp="1584609642760">
+    <state x="100" y="86" width="1240" height="784" key="DirDiffDialog/0.23.1440.808@0.23.1440.808" timestamp="1585218973341" />
+    <state x="487" y="273" key="NewPhpClassDialog" timestamp="1585343692864">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="221" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1584609642760" />
+    <state x="487" y="273" key="NewPhpClassDialog/0.0.1440.900@0.0.1440.900" timestamp="1585343692864" />
+    <state x="221" y="89" key="SettingsEditor" timestamp="1585218853164">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="221" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1585218853164" />
     <state x="397" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1585040355988">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -223,21 +249,21 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="dock-window-1/0.0.1440.900@0.0.1440.900" timestamp="1584618343772" />
-    <state x="626" y="187" key="ftp.server.browser" timestamp="1584453942160">
+    <state x="626" y="187" key="ftp.server.browser" timestamp="1585218784596">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="626" y="187" key="ftp.server.browser/0.0.1440.900@0.0.1440.900" timestamp="1584453942160" />
+    <state x="626" y="187" key="ftp.server.browser/0.0.1440.900@0.0.1440.900" timestamp="1585218784596" />
     <state x="369" y="184" width="700" height="530" key="recent.locations.popup" timestamp="1584792156860">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="369" y="184" width="700" height="530" key="recent.locations.popup/0.0.1440.900@0.0.1440.900" timestamp="1584792156860" />
-    <state x="385" y="210" key="run.anything.popup" timestamp="1585121880454">
+    <state x="385" y="210" key="run.anything.popup" timestamp="1585293619506">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="210" key="run.anything.popup/0.0.1440.900@0.0.1440.900" timestamp="1585121880454" />
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1585215428809">
+    <state x="385" y="210" key="run.anything.popup/0.0.1440.900@0.0.1440.900" timestamp="1585293619506" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1585381126346">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1585215428809" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1585381126346" />
   </component>
 </project>

@@ -407,7 +407,10 @@
             display: grid;
 
 
-            grid-template-rows: 250px 250px;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            grid-template-rows: 400px 250px 250px;
+
+
             grid-auto-flow: column;
             margin-bottom: 120px;
 
@@ -517,7 +520,7 @@
         }
         @media (max-width: 720px) {
             .col-lg-12.left{
-                grid-template-rows: auto;
+                grid-template-rows: 1fr 0.5fr 0.5fr ;
             }
 
 

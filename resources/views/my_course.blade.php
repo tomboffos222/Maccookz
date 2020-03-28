@@ -40,7 +40,7 @@
 					<span>{{$course->description}}</span>
 
 
-                    <div class="flex  course_cards mt-3 mb-5">
+                    <div class="flex   course_cards mt-3 mb-5">
                         <div class="card purchases" >
                             <div class="circle_blue">
                                 <img src="{{asset('images/people.svg')}}" alt="">
@@ -213,7 +213,178 @@
 				</div>
 
 			</div>
+
 		</div>
+        <div class="flex  course_cards d-sm-flex d-md-none mt-3">
+            <div class="card purchases" >
+                <div class="circle_blue">
+                    <img src="{{asset('images/people.svg')}}" alt="">
+
+
+                </div>
+                <h4 class="text-white mt-2">
+                    Ваши пользователи
+                </h4>
+                <h3  class="text-white mt-1 text-bold">
+                    {{$course->purchases}}
+                </h3>
+                <h6 class="text-black"><a href="" data-toggle="modal" data-target="#users" class="">Посмотреть</a></h6>
+                <div class="modal fade" id="users" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5>
+                                    История покупок
+                                </h5>
+                            </div>
+                            <div class="modal-body">
+
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+
+                                        <td>
+                                            Пользователь
+                                        </td>
+                                        <td>
+                                            Дата покупки
+                                        </td>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($purchases as $purchase)
+                                        <tr>
+                                            <td>{{$purchase->login}}</td>
+                                            <td>{{$purchase->created_at}}</td>
+
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer"  style="justify-content: flex-start">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card purchases" >
+                <div class="circle_blue">
+                    <img src="{{asset('images/money.svg')}}" alt="">
+
+
+                </div>
+                <h4 class="text-white mt-2">
+                    Вы заработали
+                </h4>
+                <h3  class="text-white mt-1 text-bold">
+                    {{$course->bill}}
+                </h3>
+                <h6 class="text-black"><a href="" data-toggle="modal" data-target="#userPurchases" class="">Посмотреть</a></h6>
+                <div class="modal fade" id="userPurchases" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5>
+                                    История покупок
+                                </h5>
+                            </div>
+                            <div class="modal-body">
+
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+
+                                        <td>
+                                            Пользователь
+                                        </td>
+                                        <td>
+                                            Дата покупки
+                                        </td>
+                                        <td>
+                                            Сумма
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($purchases as $purchase)
+                                        <tr>
+                                            <td>{{$purchase->login}}</td>
+                                            <td>{{$purchase->created_at}}</td>
+                                            <td>{{$course->price}} {{$course->currency}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer"  style="justify-content: flex-start">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card purchases" >
+                <div class="circle_blue">
+                    <img src="{{asset('images/dollar.svg')}}" alt="">
+
+
+                </div>
+                <h4 class="text-white mt-2">
+
+                    Вы вывели
+                </h4>
+                <h3  class="text-white mt-1 text-bold">
+                    {{$withdraw_sum}}
+                </h3>
+                <h6 class="text-black"><a href="" class="" data-toggle="modal" data-target="#withdraw">Посмотреть</a></h6>
+                <div class="modal fade" id="withdraw" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5>
+                                    Сделать вывод
+                                </h5>
+                            </div>
+                            <div class="modal-body">
+
+                                <form action="{{route('CreateWithdraw')}}" method="get">
+                                    <div class="form-group">
+                                        <label for="card" >Банковская карта</label>
+                                        <input type="radio" id="card" name="type_of_withdraw" value="bill">
+                                        <label for="kaspi">Номер каспи</label>
+
+                                        <input type="radio" id="kaspi" name="type_of_withdraw" value="kaspi_number" >
+                                        <input type="text" class="form-control" name="bill" placeholder="Номер карты или номер каспи gold">
+
+
+                                    </div>
+                                    <input type="hidden" name="course_id" value="{{$course->id}}">
+                                    <input type="hidden" name="user_id" value="{{$user->id}}">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" name="amount" placeholder="Сумма вывода ">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-primary">
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer"  style="justify-content: flex-start">
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
 
 
 	</div>

@@ -81,21 +81,26 @@
                 <div class="col-lg-7 col-7">
                     <select name="gender" class="form-control" id="">
                         <option value="null"></option>
-                        <option value="male">Мужской</option>
-                        <option value="female">Женский</option>
+
+                        <option value="male" @if($user->gender == 'male') selected @endif >Мужской</option>
+                        <option value="female" @if($user->gender == 'female') selected @endif>Женский</option>
                     </select>
                 </div>
-                <div class="col-lg-5 col-5">
-                    <p>Юр.информация</p>
-                </div>
-                <div class="col-lg-7 col-7">
-                    <a href="">Изменить</a>
-                </div>
+
                 <div class="col-lg-12">
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </div>
             </div>
 </form>
+        <style>
+            @media (max-width: 720px) {
+                .editer .row .col-lg-7.col-7,.editer .row .col-lg-5.col-5{
+                    height: auto !important;
+                }
+
+
+            }
+        </style>
 		@endsection
 
 </body>

@@ -20,12 +20,14 @@ class UserController extends Controller
     //
     public function FreeCourse(Request $request){
         $rules = [
-            'video'=> 'required',
-            'img'=>'required',
+
+
             'title'  => 'required'
         ];
         $messages = [
 
+
+            'title.required' => 'Введите название видео'
         ];
         $validator = $this->validator($request->all(),$rules,$messages);
         if ($validator->fails()){
@@ -50,6 +52,7 @@ class UserController extends Controller
                     $user = User::find($user['id']);
                     $data['user'] = User::find($user['id']);
                     $free_video['user_id'] = $user['id'];
+                    $free_video['views'] = 0;
                     $free_video['title'] = $request['title'];
                     $free_video['video_path'] = '/free_videos/'.$name;
                     $free_video['img_path'] = '/free_imgs/'.$imgName;
@@ -144,7 +147,7 @@ class UserController extends Controller
             session()->put('user',$user);
 
             $data['user'] = $user;
-            return redirect()->route('Main')->with('message','Вы зашли');
+            return redirect()->route('Main')->with('message');
         }
     }
     public function  Add(){
@@ -194,9 +197,26 @@ class UserController extends Controller
     }
     public function PrivateCourse(Request $request){
         $rules = [
+            'course_type' => 'required',
+            'title'  => 'required',
+            'category' => 'required',
+            'start_date'=> 'required',
+            'end_date' => 'required',
+            'description'=> 'required',
+            'price' => 'required',
+            'currency' => 'required',
+
 
         ];
         $messages = [
+            'course_type.required' => 'Введите тип курса',
+            'title.required' => 'Введите название курса',
+            'category.required' => 'Выберите категорию курса',
+            'start_date.required'  =>  'Введите дату начала курса',
+            'end_date.required' => 'Введите дату окончания курса',
+            'description.required' => 'Введите описания курса',
+            'price.required' => 'Введите цену курса',
+            'image_of_course.required' => 'Выберите фото курса',
 
         ];
         $validator = $this->validator($request->alL(),$rules,$messages);
@@ -323,8 +343,12 @@ class UserController extends Controller
     }
 
     public function LoginPage(){
+        if (session()->has('user')){
+            return redirect()->route('Main');
+        }else{
+            return view('login');
+        }
 
-        return view('login');
     }
     public function EditProfile(){
         $user = session()->get('user');
@@ -332,14 +356,16 @@ class UserController extends Controller
 
 
 
+
         return view('editprofile',$data);
     }
     public function EditAccount(Request $request){
         $rules = [
+            'avatar' => 'mimes:jpeg,bmp,png',
 
         ];
         $messages = [
-
+            'avatar.mime' => 'Фото должно быть в формате jpg',
         ];
         $validator =$this->validator($request->all(),$rules,$messages);
         if ($validator->fails()){
@@ -387,9 +413,12 @@ class UserController extends Controller
     }
     public function CreateWithdraw(Request $request){
         $rules = [
-
+                'amount' => 'required',
+                'bill' => 'required',
         ];
         $messages = [
+                'amount.required' => 'Введите сумму ',
+                'bill.required' => 'Введите каспи номер или банковский счет',
 
         ];
         $validator = $this->validator($request->all(),$rules,$messages);
@@ -437,14 +466,17 @@ class UserController extends Controller
     }
     public function Logout(){
         session()->forget('user');
+
         return redirect()->route('LoginPage')->withErrors('Вы вышли');
     }
     public function Login(Request $request){
         $rules = [
-
+            'phone' => 'required',
+            'password' => 'required',
         ];
         $messages = [
-
+            'phone.required' => 'Введите номер телефона или почту',
+            'password.required' => 'Введите пароль ',
         ];
         $validator = $this->validator($request->all(),$rules,$messages);
         if ($validator->fails()){
@@ -457,7 +489,7 @@ class UserController extends Controller
                     session()->put('user',$user);
                     session()->save();
                     $data['user'] = User::find($user['id']);
-                    return redirect()->route('Main')->with('message','Вы вошли');
+                    return redirect()->route('Main')->with('message');
                 }else{
                     return back()->withErrors('Неправильный логин или пароль');
                 }

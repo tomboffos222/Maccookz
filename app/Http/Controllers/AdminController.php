@@ -39,12 +39,12 @@ class AdminController extends Controller
                     $data['course_count']  = Course::count();
                     return view('admin.main',$data)->with('message','Вы вошли');
                 }else{
-                    return back()->withErrors('Ошибка ');
+                    return back()->withErrors('Ошибкаsds ');
 
                 }
 
             }else{
-                return back()->withErrors('Ошибка ');
+                return back()->withErrors('Ошибкаsdsss ');
             }
         }
     }

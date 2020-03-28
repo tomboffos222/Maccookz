@@ -8,13 +8,13 @@
 	<title>Профиль</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/myprofile.css">
+	<link rel="stylesheet" type="text/css" href="{{asset('css/myprofile.css')}}">
 	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Playball&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-	<link rel="stylesheet" href="css/respons.css">
+	<link rel="stylesheet" href="{{asset("css/respons.css")}}">
 </head>
 <body>
 	<div class="container">
@@ -101,13 +101,13 @@
 			</div>
 			<div class="row tabs_page active">
                 @foreach($free_courses as $free_course)
-                    <div class="col-lg-4 col-12" style="display: block;"  data-toggle="modal" data-target="#modalVideo_{{$free_course->id}}">
+                    <div class="col-lg-4 col-12 videoMainer" style="display: block;background-image: url('{!! $free_course->img_path !!}');"  data-toggle="modal" data-target="#modalVideo_{{$free_course->id}}">
+                        <div>
 
-                        <img src="{!! $free_course->img_path !!}" class="player_{{$free_course->id}} active" alt="" height="200" width="100%" style="width: 100%;height: 250px;    ">
                         <a href="" style="font-size: 25px;color:#000;">{{$free_course->title}}</a>
 
 
-
+                        </div>
                     </div>
                     <style>
                         #modalVideo_{{$free_course->id}} .modal-body{
@@ -125,7 +125,11 @@
                                 <div class="modal-footer"  style="justify-content: flex-start">
 
                                     <div class=" course_author">
-                                        <img src="{{asset('images/profile.svg')}}" alt="">
+                                        @if($user['avatar'] == null)
+                                            <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
+                                        @else
+                                            <img src="{!! $user->avatar !!}" alt="" class="profile-avatar face">
+                                        @endif
                                     </div>
                                     <div class="">
                                         {{$free_course->name}}

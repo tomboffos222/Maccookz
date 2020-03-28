@@ -18,7 +18,7 @@
 <body>
 	<div class="container">
 		<div class="col-lg-12 mb-4 pt-4" id="title">
-			<img src="images/MaccooBlack.svg" alt="">
+			<img src="{{asset('images/MaccooBlack.svg')}}" alt="">
 		</div>
 		<div class="col-lg-12" id="search">
             <form action="{{route('Search')}}" method="get">
@@ -33,8 +33,8 @@
                 @else
                     <img src="{!! $account->avatar !!}" alt="" class="profile-avatar search-avatar face">
                 @endif
-                <p>{{$account->login}}</p>
-                <span>{{$account->name}}</span>
+                <p>{{mb_strimwidth($account->login,0,10)}}</p>
+                <span>{{mb_strimwidth($account->name,0,12)}}</span>
                 <button onclick="window.location.href='{{route('AccountView',$account['id'])}}'">Посмотреть</button>
             </div>
             @endforeach
@@ -49,6 +49,13 @@
             .search-avatar{
                 width: 75px;
                 height: 75px;
+            }
+            @media (max-width: 720px) {
+                .col-lg-12 input{
+                    width: 300px    ;
+                }
+
+
             }
         </style>
     @endsection
