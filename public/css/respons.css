@@ -4,6 +4,12 @@
         left: 15px;
         height: 80px;
     }
+    .live_text{
+        font-size: 15px;
+    }
+    #myModal .modal-dialog{
+        margin: 2.5rem !important;
+    }
     .flex.course_cards{
         display: none ;
     }
@@ -12,6 +18,9 @@
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: scroll;
+    }
+    .videoMainer{
+        margin-top:25px;
     }
     .flex.course_cards h4{
 
@@ -22,6 +31,9 @@
     .card.purchases{
         margin-left: 15px;
         margin-right: 15px;
+    }
+    .table.table-striped{
+        width: 100%;
     }
 
     .flex.course_cards .card.purchases{
@@ -62,6 +74,7 @@
     .seven{
         padding-left: 0px;
         padding-top: 0px;
+
     }
     .seven>div.seven_div{
         padding-left: 25px;
@@ -299,6 +312,9 @@
     .container.container_course{
         padding-bottom: 50px !important;
     }
+    .choice .play{
+        margin: 0px 10px !important;
+    }
 
 }
 @media (min-width: 721px) {
@@ -365,9 +381,12 @@
 }
 .mainer{
     display: flex;
-    justify-content: space-between;
+
     padding-right: 15px;
     flex-wrap: wrap;
+}
+.info span{
+    width: 70%;
 }
 .info h1{
     height: auto !important;
@@ -437,11 +456,36 @@
 .seven{
     padding-left: 0px;
     padding-top: 0px;
+    height: 240px !important;
+    background-position: center center;
+}
+.seven span{
+    height: auto;
+}
+.eye{
+    height: auto;
+    position: absolute;
+    bottom:0px;
+    right: 0px;
 }
 .seven>div.seven_div{
     padding-left: 25px;
     padding-top: 30px;
+    padding-right: 10px;
+    height: 100% !important;
+
     border-radius: 10px !important;
+}
+#choche h2{
+    font-size: 1.7rem;
+}
+.seven_div button{
+    position: absolute;
+    left:20px;
+    bottom: 50px;
+}
+.infosub .friends{
+    cursor: pointer;
 }
 .videoMainer{
     width: 100%;
@@ -471,3 +515,97 @@
     align-items: flex-end;
     height: 100%;
 }
+
+@media (min-width: 1500px) {
+    #i8{
+        padding-right: 15%;
+    }
+
+}
+
+.info h1{
+    width: auto;
+}
+
+.modal-dialog{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: calc(100% - (.5rem * 2));
+}
+.modal-backdrop.show{
+    opacity: .7 !important;
+}
+video{
+    background-color: #000;
+}
+.mainer .modal-body{
+    padding:0px !important;
+}
+#notView{
+    display: none;
+}
+
+.icon_add{
+    width: 30px;
+    margin-right: 23px;
+    height: 30px;
+}
+.paper{
+    width: 23px;
+    height: 23px;
+}
+.send_message_button{
+    width: 179px !important;
+}
+.icon_add:hover{
+    cursor: pointer;
+
+}
+
+#myModal1 h5{
+
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 30px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #000000;
+    margin-bottom: 14px;
+
+}
+#myModal1 .modal-body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#myModal1 img{
+    width: 77px;
+    height: 77px;
+}
+#myModal1 h4{
+    text-align: center;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #000000;
+
+}
+#myModal1 .modal-header{
+    padding:0px !important;
+}
+

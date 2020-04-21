@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
+
+
+use App\Categories;
+use App\Chat;
 use App\Course;
 use App\Course_category;
 use App\Course_video;
@@ -13,16 +18,156 @@ use App\User_purchase_operations;
 use App\Withdraws;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
+use Intervention\Image\ImageManagerStatic as Image;
+
 use PHPUnit\Framework\Constraint\Count;
 
 class UserController extends Controller
 {
     //
-    public function FreeCourse(Request $request){
+    public function DeleteFreeCourse($id){
+        $course = Free_course::find($id);
+        $course->delete();
+
+        return back()->with('message','Удалено');
+
+    }
+    public function DeleteVideo($id){
+        $course = Course_video::find($id);
+        $course->delete();
+
+        return back()->with('message','Удалено');
+    }
+    public function DeleteCourse($id){
+        $videos = Course_video::where('course_id',$id)->get();
+        $categories = Course_category::where('course_id',$id)->get();
+        foreach($videos as $video){
+            $video->delete();
+
+        }
+        foreach ($categories as $category){
+            $category->delete();
+        }
+        $course = Course::find($id);
+        $course->delete();
+
+        return redirect()->route('Profile')->with('message','Ваш курс удален');
+    }
+    public function EditFreeCourse(Request $request){
         $rules = [
 
+            'title' => 'required',
+            'video_id' => 'required'
+        ];
+        $messages = [
 
-            'title'  => 'required'
+            'video_id.required' => 'Ошибка',
+            'title.required' => 'Введите название видео'
+        ];
+        $validator = $this->validator($request->all(),$rules,$messages);
+        if ($validator->fails()){
+            return back()->withErrors($validator->errors);
+        }else{
+            $free_video = Free_course::find($request['video_id']);
+            $free_video['title'] = utf8_encode($request['title']);
+            if ($request->hasFile('video')) {
+
+                $video = $request->file('video');
+                $name = rand(11111, 99999) . '.' . $video->getClientOriginalExtension();
+                $path = public_path('/free_videos/');
+
+                $video->move($path, $name);
+                $free_video['video_path'] = '/free_videos/' . $name;
+            }
+            if ($request->hasFile('img')) {
+                    $img = $request->file('img');
+                    $imgName = rand(11111, 99999) . '.' . $img->getClientOriginalExtension();
+                    $imgPath = public_path('/free_imgs/');
+                Image::make($request->file('img'))->save($imgPath.$imgName);
+
+
+
+
+
+
+
+
+
+
+                    $free_video['img_path'] = '/free_imgs/' . $imgName;
+
+
+
+
+            }
+            $free_video->save();
+            return back()->with('message','Изменено');
+
+
+        }
+
+    }
+    public function EditCourseVideo(Request $request){
+        $rules = [
+
+            'title' => 'required',
+            'video_id' => 'required'
+        ];
+        $messages = [
+
+            'video_id.required' => 'Ошибка',
+            'title.required' => 'Введите название видео'
+        ];
+        $validator = $this->validator($request->all(),$rules,$messages);
+        if ($validator->fails()){
+            return back()->withErrors($validator->errors);
+        }else{
+            $free_video = Course_video::find($request['video_id']);
+            $free_video['title'] = utf8_encode($request['title']);
+            if ($request->hasFile('video')) {
+
+                $video = $request->file('video');
+                $name = rand(11111, 99999) . '.' . $video->getClientOriginalExtension();
+                $path = public_path('/free_videos/');
+
+                $video->move($path, $name);
+                $free_video['video_path'] = '/free_videos/' . $name;
+            }
+            if ($request->hasFile('img')) {
+                $img = $request->file('img');
+                $imgName = rand(11111, 99999) . '.' . $img->getClientOriginalExtension();
+                $imgPath = public_path('/course_image/course_video/course_image');
+                Image::make($request->file('img'))->save($imgPath.$imgName);
+
+
+
+
+
+
+
+
+
+
+                $free_video['img_path'] = '/free_imgs/' . $imgName;
+
+
+
+
+            }
+            $free_video->save();
+            return back()->with('message','Изменено');
+
+
+        }
+
+    }
+    public function FreeCourse(Request $request){
+        $rules = [
+            'video' =>'required',
+
+            'title'  => 'required',
+            'img' => 'required'
         ];
         $messages = [
 
@@ -43,7 +188,9 @@ class UserController extends Controller
                     $img = $request->file('img');
                     $imgName = rand(11111,99999).'.'.$img->getClientOriginalExtension();
                     $imgPath = public_path('/free_imgs/');
-                    $img->move($imgPath,$imgName);
+
+                    Image::make($request->file('img'))->save($imgPath.$imgName);
+
 
 
 
@@ -53,11 +200,14 @@ class UserController extends Controller
                     $data['user'] = User::find($user['id']);
                     $free_video['user_id'] = $user['id'];
                     $free_video['views'] = 0;
-                    $free_video['title'] = $request['title'];
+                    $free_video['title'] = utf8_encode($request['title']);
                     $free_video['video_path'] = '/free_videos/'.$name;
                     $free_video['img_path'] = '/free_imgs/'.$imgName;
                     $free_video->save();
-                    return view('result',$data)->with('message','Добавлено');
+                    $data['categories'] = Categories::get();
+                    $data['isAdd'] = true;
+                    $data['form_success'] = 1;
+                    return view('add_course',$data);
 
 
                 }
@@ -68,9 +218,13 @@ class UserController extends Controller
     }
     public  function CourseVideo(Request $request){
         $rules = [
+            'img' => 'required',
+            'video' => 'required'
 
         ];
         $messages = [
+            'img.required' => 'Загрузите фото',
+            'video.required' => 'Загрузите видео'
 
         ];
         $validator = $this->validator($request->all(),$rules,$messages);
@@ -81,20 +235,20 @@ class UserController extends Controller
                 if($request->hasFile('video')){
                     $video =  $request->file('video');
                     $videoName = Str::random(20).'.'.$video->getClientOriginalExtension();
-                    $videoPath = public_path('/course_image/course_video/video');
+                    $videoPath = public_path('/course_image/course_video/video/');
                     $video->move($videoPath,$videoName);
 
 
                     $image = $request->file('img');
-                    $imageName =Str::random(20).'.'.$video->getClientOriginalExtension();
-                    $imagePath = public_path('/course_image/course_video/course_image');
-                    $image->move($imagePath,$imageName);
+                    $imageName =Str::random(20).'.'.$image->getClientOriginalExtension();
+                    $imagePath = public_path('/course_image/course_video/course_image/');
+                    Image::make($request->file('img'))->save($imagePath.$imageName);
 
 
 
                     $videoCourse = new Course_video();
                     $videoCourse['course_id'] = $request['course_id'];
-                    $videoCourse['category_id'] = $request['category_id'];
+                    $videoCourse['category_id'] =null;
                     $videoCourse['views'] = 0;
                     $videoCourse['video_path'] = '/course_image/course_video/video/'.$videoName;
                     $videoCourse['image_path'] = '/course_image/course_video/course_image/'.$imageName;
@@ -102,7 +256,11 @@ class UserController extends Controller
                     $videoCourse->save();
 
 
-                    return back()->with('message','Процесс прошел успешно');
+
+
+
+
+                    return back()->with('form_success',1) ;
 
 
                 }
@@ -139,16 +297,37 @@ class UserController extends Controller
             $user['email'] = $request['email'];
             $user['phone'] = $request['phone'];
             $user['name'] = $request['name'];
-            $user['status'] = 'registered';
+            $user['status'] = 'wait';
             $user['login'] = $request['login'];
             $user['password'] = $request['password'];
             $user->save();
 
-            session()->put('user',$user);
+            $to = $request['email'];
+            $subject = 'Регистрация';
+            $message = 'Нажмите на ссылку чтобы подвердить вашу почту '.route('ApproveUser',$user['id']);
+            $headers = 'From: webmaster@example.com' . "\r\n" .
+                'Reply-To: webmaster@example.com' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
 
-            $data['user'] = $user;
-            return redirect()->route('Main')->with('message');
+            if(mail($to, $subject, $message, $headers)){
+
+
+
+                return redirect()->route('LoginPage')->with('message','Вам отправлено письмо на почту'.$user['email']);
+            }else{
+                echo 'wtf';
+            }
+
+
         }
+    }
+    public function ApproveUser($id){
+        $user = User::find($id);
+        $user['status'] =  'registered';
+        $user->save();
+        session()->put('user',$user);
+        session()->save();
+        return redirect()->route('Main')->with('message','Аккаунт успешно зарегистрирован');
     }
     public function  Add(){
         $user = session()->get('user');
@@ -158,41 +337,97 @@ class UserController extends Controller
     }
     public function AccountView($id){
         $user = session()->get('user');
-        $account = User::find($id);
-        $data['user'] = User::find($id);
-        $data['free_courses'] = Free_course::where('user_id',$id)->get();
-        $friendship= User_friend_operations::where('owner_id',$user['id'])->where('friend_id',$account['id'])->first();
-        if (!isset($friendship)){
-            $friendship= User_friend_operations::where('owner_id',$account['id'])->where('friend_id',$user['id'])->first();
-            $data['friendship'] = $friendship;
-        }else{
-            $data['friendship'] = $friendship;
+
+        $data['user'] = User::find($user['id']);
+        if ($user['id'] == $id){
+            return redirect()->route('Profile');
+        }else {
+            $account = User::find($id);
+            $data['account'] = User::find($id);
+
+            $data['free_courses'] = Free_course::where('user_id', $id)->get();
+            foreach ($data['free_courses'] as $free_course){
+
+
+
+
+            }
+            $friendship = User_friend_operations::where('owner_id', $user['id'])
+                ->where('friend_id', $account['id'])->first();
+            $data['chat_id']  = Chat::where([['owner_id','=',$user['id']],['friend_id','=',$account['id']]])
+                            ->orWhere([['owner_id','=',$account['id']],['friend_id','=',$user['id']]])
+                            ->first();
+
+
+            if (!isset($friendship)) {
+                $friendship = User_friend_operations::where('owner_id', $account['id'])
+                    ->where('friend_id', $user['id'])
+                    ->first();
+                $data['friendship'] = $friendship;
+            } else {
+                $data['friendship'] = $friendship;
+            }
+
+            $counter = User_friend_operations::where('owner_id', $account['id'])->where('status', 'ok')->count();
+            $counter1 = User_friend_operations::where('friend_id', $account['id'])->where('status', 'ok')->count();
+            $data['friendship_counter'] = $counter + $counter1;
+            $data['course_counter'] = Course::where('user_id', $account['id'])->count();
+
+            $data['courses'] = Course::where('user_id', $id)->get();
+            $courses = Course::where('user_id', $id)->orderBy('id','desc')->get();
+            foreach ($courses as $course){
+                $exception = User_purchase_operations::where('course_id',$course['id'])->where('user_id',$user['id'])
+                    ->where('status','ok')->first();
+
+                if (!$exception){
+                    $course['purchased'] = 0;
+                }else{
+                    $course['purchased'] = 1;
+                }
+            }
+            $data['courses'] = $courses;
+            foreach ($data['free_courses'] as $datum) {
+                $datum['title'] = utf8_decode($datum['title']);
+
+
+
+            }
+            foreach ($data['courses'] as $datum) {
+                $datum['title'] = utf8_decode($datum['title']);
+                $datum['description'] = utf8_decode($datum['description']);
+
+
+
+            }
+
+            $data['account']['about'] = utf8_decode($data['account']['about']);
+
+            $data['isSearch'] = true;
+
+            return view('profile', $data);
         }
-        $counter = User_friend_operations::where('owner_id',$account['id'])->where('status','ok')->count();
-        $counter1 = User_friend_operations::where('friend_id',$account['id'])->where('status','ok')->count();
-        $data['friendship_counter'] = $counter + $counter1;
-        $data['course_counter'] = Course::where('user_id',$account['id'])->count();
-
-        $data['courses'] = Course::where('user_id',$id)->get();
-        $courses = Course::where('user_id',$id)->get();
-
-        $data['isSearch']  = true;
-
-        return view('profile',$data);
     }
+
     public  function AddFriend($id){
         $user = session()->get('user');
         $user = User::find($user['id']);
         $friend = User::find($id);
-        $friendship = new User_friend_operations();
-        $friendship['owner_id'] = $user['id'];
-        $friendship['friend_id'] = $friend['id'];
-        $friendship['status'] = 'wait';
 
-        $friendship->save();
 
-        return back()->with('message','Заявка отправлена');
+        if ($user['id'] == $friend['id']){
+            return back()->withErrors('Невозможно добавить себя в друзья');
+        }else {
 
+
+            $friendship = new User_friend_operations();
+            $friendship['owner_id'] = $user['id'];
+            $friendship['friend_id'] = $friend['id'];
+            $friendship['status'] = 'wait';
+
+            $friendship->save();
+
+            return back()->with('message', 'Заявка отправлена');
+        }
 
     }
     public function PrivateCourse(Request $request){
@@ -205,6 +440,7 @@ class UserController extends Controller
             'description'=> 'required',
             'price' => 'required',
             'currency' => 'required',
+            'image_of_course'=> 'required'
 
 
         ];
@@ -237,6 +473,8 @@ class UserController extends Controller
             $course['start_date'] = $request['start_date'];
             $course['end_date'] = $request['end_date'];
             $course['description'] = $request['description'];
+            $course['description']  = utf8_encode($course['description']);
+            $course['title']  = utf8_encode($course['title']);
             $course['price'] = $request['price'];
             $course['currency'] = $request['currency'];
             $course['purchases'] = 0;
@@ -255,7 +493,11 @@ class UserController extends Controller
                 $course['image_of_course'] = '/course_image/'.$imageName;
 
                 $course->save();
-                return view('result',$data)->with('message','Добавлено');
+                $data['categories'] = Categories::get();
+                $data['isAdd'] = true;
+                $data['form_success'] = 1;
+                return view('add_course',$data);
+
 
             }else{
                 return back()->withErrors('Загрузите фото');
@@ -343,8 +585,14 @@ class UserController extends Controller
     }
 
     public function LoginPage(){
+        $user = session()->get('user');
         if (session()->has('user')){
-            return redirect()->route('Main');
+            if ($user['status'] != 'wait') {
+                return redirect()->route('Main');
+            }
+            else{
+                return view('login');
+            }
         }else{
             return view('login');
         }
@@ -353,6 +601,7 @@ class UserController extends Controller
     public function EditProfile(){
         $user = session()->get('user');
         $data['user'] = User::find($user['id']);
+        $data['user']['about'] = utf8_decode($data['user']['about']);
 
 
 
@@ -372,6 +621,12 @@ class UserController extends Controller
             return back()->withErrors($validator->errors());
         }else{
             $user = User::find($request['user_id']);
+            if ($user['login'] != $request['login']){
+                $user['login'] = $request['login'];
+            }
+            if ($user['name'] != $request['name']){
+                $user['name'] = $request['name'];
+            }
             if ($user['email'] != $request['email']){
                 $user['email'] = $request['email'];
             }
@@ -379,7 +634,10 @@ class UserController extends Controller
                 $user['phone'] = $request['phone'];
             }
             $user['instagram'] = $request['instagram'];
-            $user['about'] = $request['about'];
+
+            $user['about'] = utf8_encode($request['about']);
+
+
             if ($request['gender'] != null) {
                 $user['gender'] = $request['gender'];
             }else{
@@ -400,16 +658,101 @@ class UserController extends Controller
     public function MyCourse($id){
         $user = session()->get('user');
         $data['user'] =  User::find($user['id']);
+        $data['courseId'] = $id;
+
+
         $data['purchases'] = User_purchase_operations::where('course_id',$id)
             ->join('users','users.id','=','user_purchase_operations.user_id')
             ->select('user_purchase_operations.*','users.login','users.avatar')
             ->get();
         $data['withdraw_sum']  = Withdraws::where('user_id',$user['id'])->where('course_id',$id)->pluck('amount')->sum();
         $data['course'] = Course::where('user_id',$user['id'])->where('id',$id)->first();
+        $data['course']['description'] = utf8_decode($data['course']['description']);
+        $data['course']['title'] = utf8_decode($data['course']['title']);
         $data['categories'] = Course_category::where('course_id',$id)->get();
         $data['videos'] = Course_video::where('course_id',$id)->paginate(5);
 
-        return view('my_course',$data);
+        foreach ($data['videos'] as $video){
+            $video['title'] = utf8_decode($video['title']);
+
+        }
+        if ($data['course']){
+            $data['categories'] = Categories::get();
+            return view('my_course',$data);
+        }else{
+            return redirect()->back()->withErrors('У вас нет доступа');
+        }
+
+    }
+    public function EditCourse(Request $request){
+        $rules = [
+            'course_type' => 'required',
+            'title'  => 'required',
+            'category' => 'required',
+            'start_date'=> 'required',
+            'end_date' => 'required',
+            'description'=> 'required',
+            'price' => 'required',
+            'currency' => 'required',
+            'course_id' => 'required'
+
+        ];
+        $messages = [
+            'course_type.required' => 'Введите тип курса',
+            'title.required' => 'Введите название курса',
+            'category.required' => 'Выберите категорию курса',
+            'start_date.required'  =>  'Введите дату начала курса',
+            'end_date.required' => 'Введите дату окончания курса',
+            'description.required' => 'Введите описания курса',
+            'price.required' => 'Введите цену курса',
+
+
+
+        ];
+        $validator = $this->validator($request->all(),$rules,$messages);
+        if ($validator->fails()){
+            return back()->withErrors($validator->errors());
+
+        }else{
+            $course = Course::find($request['course_id']);
+
+            $course['course_type'] = $request['course_type'];
+
+            $course['title'] = $request['title'];
+            $course['title'] = utf8_encode($course['title']);
+            $course['category'] = $request['category'];
+            $course['start_date'] = $request['start_date'];
+            $course['end_date'] = $request['end_date'];
+            $course['description'] = $request['description'];
+            $course['description'] = utf8_encode($course['description']);
+            $course['price'] = $request['price'];
+            $course['currency'] = $request['currency'];
+
+            if ($request->has('address')){
+                $course['address']=$request['address'];
+            }else{
+                $course['address'] = null;
+            }
+            if ($request->hasFile('image_of_course')){
+                $image = $request->file('image_of_course');
+                $imageName = rand(11111,99999).'.'.$image->getClientOriginalExtension();
+                $imagePath = public_path('/course_image/');
+                $image->move($imagePath,$imageName);
+                $course['image_of_course'] = '/course_image/'.$imageName;
+
+                $course->save();
+                return back()->with('message','Изменено');
+
+            }else{
+                $course->save();
+
+                return back()->with('message','Изменено');
+            }
+
+
+
+        }
+
     }
     public function CreateWithdraw(Request $request){
         $rules = [
@@ -455,19 +798,42 @@ class UserController extends Controller
     }
 
     public function Main(){
+        $user = session()->get('user');
         $data['videos'] = Free_course::orderBy('free_courses.created_at','desc')
             ->join('users','free_courses.user_id','=','users.id')
-            ->select('free_courses.*','users.name','users.login','users.avatar')
-            ->paginate(10);
+            ->where('free_courses.user_id','!=',$user['id'])
+            ->select('free_courses.*','users.name','users.login','users.avatar','users.id','free_courses.id as course_id')
+            ->get();
+        foreach ($data['videos'] as $free_course){
+
+
+
+
+        }
+        foreach ($data['videos'] as $datum) {
+            $datum['title'] = utf8_decode($datum['title']);
+
+
+
+        }
+
         $data['isMenu'] = true;
-        $user = session()->get('user');
+
+
         $data['user'] = User::find($user['id']);
         return view('main' , $data);
     }
     public function Logout(){
         session()->forget('user');
+        session()->save();
+
 
         return redirect()->route('LoginPage')->withErrors('Вы вышли');
+    }
+    private function decode($var){
+
+        return $var = utf8_decode($var);
+
     }
     public function Login(Request $request){
         $rules = [
@@ -486,10 +852,14 @@ class UserController extends Controller
             $user = User::where('phone',$request['phone'])->orWhere('email',$request['phone'])->first();
             if ($user){
                 if ($user['password'] == $request['password']){
-                    session()->put('user',$user);
-                    session()->save();
-                    $data['user'] = User::find($user['id']);
-                    return redirect()->route('Main')->with('message');
+                    if ($user['status'] != 'wait'){
+                        session()->put('user',$user);
+                        session()->save();
+                        $data['user'] = User::find($user['id']);
+                        return redirect()->route('Main')->with('message');
+                    }else{
+                        return back()->withErrors('Аккаунт не подтвержден');
+                    }
                 }else{
                     return back()->withErrors('Неправильный логин или пароль');
                 }
@@ -504,35 +874,160 @@ class UserController extends Controller
 
         $user = session()->get('user');
         $data['user'] = User::find($user['id']);
+
+
+
         $data['free_courses'] = Free_course::where('user_id',$user['id'])->join('users','users.id','=','free_courses.user_id')->select('free_courses.*','name','login','email')->get();
+        foreach ($data['free_courses'] as $free_course){
+
+
+
+        }
         $friendship= User_friend_operations::where('owner_id',$user['id'])->where('status','ok')->count();
         $friendship2 = User_friend_operations::where('friend_id',$user['id'])->where('status','ok')->count();
         $data['friend_counter'] = $friendship + $friendship2;
         $data['courses_counter'] = Course::where('user_id',$user['id'])->count();
         $data['courses'] = Course::where('user_id',$user['id'])->get();
+        foreach ($data['courses'] as $datum) {
+            $datum['title'] = utf8_decode($datum['title']);
+            $datum['description'] = utf8_decode($datum['description']);
+
+
+        }
+
         $data['isProfile'] = true;
+        $data['friends'] =User_friend_operations::join('users','users.id','=','user_friend_operations.owner_id')
+            ->select('users.*','user_friend_operations.owner_id' , 'user_friend_operations.friend_id','user_friend_operations.status')
+            ->where('user_friend_operations.status','ok')
+            ->Where('user_friend_operations.friend_id',$user['id'])
+            ->get();
+        $friends =User_friend_operations::join('users','users.id','=','user_friend_operations.friend_id')
+            ->select('users.*','user_friend_operations.owner_id' , 'user_friend_operations.friend_id','user_friend_operations.status')
+            ->where('user_friend_operations.status','ok')
+            ->Where('user_friend_operations.owner_id',$user['id'])
+
+            ->get();
+
+        foreach ($friends as $friend){
+            $data['friends'][] = $friend;
+        }
+        $data['chat_id'] = Chat::where('owner_id',$user['id'])
+            ->orWhere('friend_id',$user['id'])->orderBy('id','desc')
+            ->first();
+
+        $data['user']['about']  = utf8_decode($data['user']['about']);
+
 
         $data['course_counter'] = User_purchase_operations::where('user_id',$user['id'])->count();
         $data['purchased_courses'] = User_purchase_operations::where('user_purchase_operations.user_id',$user['id'])
             ->join('courses','user_purchase_operations.course_id','=','courses.id')
             ->select('courses.*','courses.user_id')
             ->paginate(12);
+        foreach ($data['purchased_courses'] as $datum) {
+            $datum['title'] = utf8_decode($datum['title']);
+            $datum['description'] = utf8_decode($datum['description']);
+
+
+        }
+        foreach ($data['free_courses'] as $datum) {
+            $datum['title'] = utf8_decode($datum['title']);
+
+
+
+        }
 
         return view('myprofile',$data);
 
 
+    }
+    public function ForgetPage(){
+
+        return view('forget');
+    }
+    public function ForgetPassword(Request $request){
+        $rules = [
+          'email' => 'required'
+        ];
+        $messages = [
+          'email.required' => 'Введите почту'
+        ];
+        $validator = $this->validator($request->all(),$rules,$messages);
+        if($validator->fails()){
+            return back()->withErrors($validator->errors());
+        }else{
+            $user  = User::where('email',$request['email'])->first();
+            session()->put('password',$user);
+            session()->save();
+            $to = $request['email'];
+            $subject = 'Изменение пароля';
+            $message = 'Нажмите на ссылку чтобы подвердить вашу почту '.route('PasswordSet',$user['id']);
+            $headers = 'From: webmaster@example.com' . "\r\n" .
+                'Reply-To: webmaster@example.com' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+
+            if(mail($to, $subject, $message, $headers)){
+                session()->put('password',$user);
+
+                $data['password'] = $user;
+                return back()->with('message','Вам отправлено письмо на почту '.' '.$user['email']);
+            }else{
+                echo 'wtf';
+            }
+
+        }
+    }
+    public  function PasswordSet($id){
+        $data['id'] = $id;
+        $user = session()->get('password');
+
+        if ($id == $user['id']){
+            return view('password_set',$data);
+        }else{
+            return redirect()->route('LoginPage')->withErrors('В доступе отказано');
+        }
+
+    }
+    public function NewPassword(Request $request){
+        $rules = [
+            'password' => 'required',
+            'user_id' => 'required'
+        ];
+        $messages = [
+            'password.required'  => 'Введите пароль',
+            'user_id.required' => 'Ошибка'
+        ];
+        $validator = $this->validator($request->all(),$rules,$messages);
+        if($validator->fails()){
+            return back()->withErrors($validator->errors());
+        }else{
+            $user = User::find($request['user_id']);
+            $user['password'] = $request['password'];
+            $user->save();
+            session()->forget('password');
+            session()->save();
+            return redirect()->route('LoginPage')->with('message','Успешно изменено');
+        }
     }
     public function ViewCourse($id){
 
         $data['course'] = Course::find($id);
         $course = Course::find($id);
         $data['user'] = User::find($course['user_id']);
+        $data['course']['description'] = utf8_decode($data['course']['description']);
+        $data['course']['title'] = utf8_decode($data['course']['title']);
+        $data['courseId'] = $id;
         $data['categories'] = Course_category::where('course_id',$id)->get();
-        $data['videos'] = Course_video::where('course_id',$id)->get();
+        $data['videos'] = Course_video::where('course_id',$id)->paginate(9);
+        $user = session()->get('user');
+        $exception = User_purchase_operations::where('user_id',$user['id'])->where('course_id',$course['id'])->first();
+        if ($exception){
+            $course['views'] +=1;
+            $course->save();
+            return view('course',$data);
 
-        $course['views'] +=1;
-        $course->save();
-        return view('course',$data);
+        }else{
+            return redirect()->back()->withErrors('У вас нет доступа в этот курс');
+        }
 
 
     }
@@ -542,6 +1037,12 @@ class UserController extends Controller
         $friendship['status'] = 'ok';
 
         $friendship->save();
+        $chat = new Chat();
+        $chat['owner_id'] = $friendship['owner_id'];
+        $chat['friend_id'] = $friendship['friend_id'];
+        $chat->save();
+
+
         return back()->with('message','Одобрено!');
     }
     public function Events(){
@@ -549,7 +1050,8 @@ class UserController extends Controller
         $data['user'] = User::find($user['id']);
         $data['friendships'] = User_friend_operations::where('friend_id',$user['id'])
             ->join('users','users.id','=','user_friend_operations.owner_id')
-            ->select('users.*','user_friend_operations.created_at')
+            ->select('users.*','user_friend_operations.created_at','users.id as user_id')
+            ->orderBy('user_friend_operations.created_at','desc')
             ->get();
 
         $courses = Course::where('user_id',$user['id'])->get();
@@ -559,13 +1061,21 @@ class UserController extends Controller
 
 
             ->join('users','user_purchase_operations.user_id','=','users.id')
-            ->select('users.*','user_purchase_operations.created_at','courses.title','courses.price')
+            ->select('users.*','user_purchase_operations.created_at','courses.title','courses.price' , 'users.id as user_id')
             ->orderBy('user_purchase_operations.created_at','desc')
             ->get();
+        foreach($data['purchases'] as $purchase){
+            $purchase['title'] = utf8_decode($purchase['title']);
+        }
 
 
         $data['isEvent'] = true;
         return view('event',$data);
+    }
+    public function ExpChat(){
+        $user = session()->get('user');
+        $data['user'] = User::find($user['id']);
+        return view('new_chat',$data);
     }
     public function DeleteFriend($id){
         $friendship = User_friend_operations::find($id);
@@ -699,7 +1209,7 @@ class UserController extends Controller
     public function SearchPage(){
         $user = session()->get('user');
         $data['user'] = User::find($user['id']);
-        $data['accounts'] = User::where('id','!=',$user['id'])->paginate(12);
+        $data['accounts'] = User::where('id','!=',$user['id'])->get();
 
         $data['isSearch'] = true;
         return view('search',$data);
@@ -733,8 +1243,19 @@ class UserController extends Controller
     public function AddCourse(){
         $user = session()->get('user');
         $data['user'] = User::find($user['id']);
+        $data['categories'] = Categories::get();
         $data['isAdd'] = true;
         return view('add_course',$data);
     }
+    function generateChars($length = 16) {
+        $chars = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
+        $strLen = strlen($chars);
+        $str = '';
+        for ($i=0; $i < $length; $i++) {
+            $str .= substr($chars, rand(1, $strLen) - 1, 1);
+        }
+        return $str;
+    }
+
 }
 

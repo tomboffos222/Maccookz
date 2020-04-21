@@ -20,8 +20,10 @@
         </div>
     @endif
     @yield('content')
-
     <div class="col-lg-12" id="menu">
+        @php $user = session()->get('user');  @endphp
+
+
         <div class="row">
 
             <div>
@@ -144,7 +146,40 @@
             </div>
         </div>
     </div>
+<div id="notView" class="display:none">
+    <div id="composeUserId">{{ $composeUserId }}</div>
+    <div id="chatLists">
+        @foreach($composeChatList as $chat)
+            <li chatId="{{$chat->chat_id}}"></li>
+        @endforeach
+    </div>
 </div>
+<style>
+    a:hover{
+        text-decoration: none !important;
+    }
+    @media (max-width: 720px) {
+        #suck .text h6{
+            font-size: 12px;
+        }
 
+
+    }
+</style>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script src="{{asset('js/socket.io.js')}}"></script>
+<script src="{{asset('js/chat.js')}}"></script>
+<script>
+
+    $('#openList').on('click',function(){
+        $('.row .col-lg-5').addClass('active')
+    })
+
+
+</script>
 </body>
 </html>

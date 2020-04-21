@@ -20,6 +20,7 @@ class CreateFreeCoursesTable extends Migration
             $table->string('title');
             $table->text('video_path');
             $table->text('img_path');
+            $table->integer('views');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

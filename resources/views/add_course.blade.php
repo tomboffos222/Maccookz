@@ -13,6 +13,7 @@
 </head>
 <body>
 	<div class="container">
+
 		<div class="col-lg-12">
 			<h5>ВЫБЕРИТЕ РАЗДЕЛ</h5>
 			<div class="choice">
@@ -25,7 +26,7 @@
 				<div class="play">
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
 					  <img src="{{asset('images/pplay.svg')}}" alt="">
-					  <p>Добавить<br> Бесплатное видео</p>
+					  <p>Добавить<br> публикацию</p>
 					</button>
 				</div>
 			</div>
@@ -57,8 +58,9 @@
                                 <input type="text"  class="form-control" name="title">
                                 <label for="">Выберите категорию курса</label>
                                 <select name="category" id="" class="form-control" >
-                                    <option value="1">Обучение</option>
-                                    <option value="2">Развлечения</option>
+                                    @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->title}}</option>
+                                    @endforeach
                                 </select>
                                 <label for="">Адрес</label>
                                 <input type="text" class="form-control" name="address">
@@ -68,7 +70,7 @@
                                     <input type="date" class="form-control w-50" name="end_date">
                                 </div>
                                 <label for="">Описание курса</label>
-                                <textarea class="form-control" name="description"></textarea>
+                                <textarea id="summernote" class="form-control" name="description"></textarea>
                                 <label for="">Цена</label>
                                 <div class="d-flex">
                                     <input type="number" class="form-control w-75" style="border-radius:5px 0px 0px 5px;" name="price">
@@ -108,29 +110,79 @@
 
 
                             <h5>Загрузите видео</h5>
-                            <span>Видео не должен превышать 120 мб<br>Формат:MP4,WMV,MOV<br>Размер фона: 988 x 649 или 900 х 1023</span>
+                            <span>Видео не должен превышать 450 мб<br>Формат:MP4,WMV,MOV<br>Размер фона: 988 x 649 или 900 х 1023</span>
                             <input type="text" placeholder="Заголовок видео" name="title">
                             <label class="label">
-                                <i class="material-icons">Видео</i>
-                                <span class="title">Добавить видео</span>
-                                <input type="file" class="kot" name="video">
+                                <i class="material-icons" id="new">Видео</i>
+                                <span class="title" > Добавить видео</span>
+                                <input type="file" class="kot" id="free_image" name="video">
                             </label>
                             <label class="label">
-                                <i class="material-icons">Фоновая картина</i>
+                                <i class="material-icons" id="new_video">Фоновая картина</i>
                                 <span class="title">Выбрать картинку</span>
-                                <input type="file" class="kot" name="img">
+                                <input type="file" class="kot" id="free_video" name="img">
                             </label>
 
                     </div>
                     <div class="modal-footer">
 
-                        <button type="submit" class="btn btn-primary">Загрузить видео</button>
+                        <button type="submit" data-loading-text="Отправляется..." class="btn btn-primary">Загрузить видео</button>
                     </div>
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
+    @if(isset($form_success))
+    <div class="modal" tabindex="-1" id="myModal1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <h5>
+                        Спасибо заявка <br> принята!!!
+                    </h5>
+
+                    <img src="{{asset('images/success.png')}}" alt="">
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <h4>
+                        ЗАЯВКА ОБРАБАТЫВАЕТСЯ В ТЕЧЕНИЕ 1-2 ДНЯ <br>
+                        ОТВЕТ ПРИХОДИТЬ В УКАЗАННЫЙ <br> ваш электронный адрес</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <div class="modal" tabindex="-1" id="myModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="loading-bar-spinner" class="spinner"><div class="spinner-icon"></div></div>
+                    <br>
+
+                </div>
+                <div class="modal-footer">
+                    <h4>Загрузка</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <script
         src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
@@ -140,8 +192,98 @@
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/script.js')}}"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
 </body>
+<script>
+    $(".btn").on('click', function () {
+        var dataLoadingText = $(this).attr("data-loading-text");
+        if (typeof dataLoadingText !== typeof undefined && dataLoadingText !== false) {
+            console.log(dataLoadingText);
+            $('#exampleModal2').modal('toggle');
+            $('#myModal').modal('show');
 
+
+
+        }
+    });
+    $('#summernote').summernote({
+        airMode: true
+    });
+    $('#myModal1').modal('show');
+    $(document).ready(function(){
+        $('#free_image').change(function(e){
+            var str = e.target.files[0].name;
+            if(str.length > 15) str = str.substring(0,10);
+            $('#new').html(str)
+
+        });
+        $('#free_video').change(function(e){
+            var str = e.target.files[0].name;
+            if(str.length > 15) str = str.substring(0,10);
+            $('#new_video').html(str)
+
+        });
+    });
+
+
+</script>
+<style>
+
+    .lds-dual-ring {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+    }
+    .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #cef;
+        border-color: #cef transparent #cef transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    #loading-bar-spinner.spinner {
+        left: 50%;
+        margin-left: -20px;
+        top: 50%;
+        margin-top: -20px;
+        position: absolute;
+        z-index: 19 !important;
+        animation: loading-bar-spinner 900ms linear infinite;
+    }
+    #myModal .modal-body{
+        height: 250px;
+
+    }
+
+    #loading-bar-spinner.spinner .spinner-icon {
+        width: 60px;
+        height: 60px;
+        border:  solid 4px transparent;
+        border-top-color:  #0075E1 !important;
+        border-left-color: #0075E1 !important;
+        border-radius: 50%;
+    }
+
+    @keyframes loading-bar-spinner {
+        0%   { transform: rotate(0deg);   transform: rotate(0deg); }
+        100% { transform: rotate(360deg); transform: rotate(360deg); }
+    }
+
+
+</style>
     @endsection
 
 

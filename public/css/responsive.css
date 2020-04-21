@@ -8,11 +8,11 @@
 
     }
     body{
-        overflow: visible;
+        overflow: visible !important;
 
     }
     .obolochka{
-        overflow: visible;
+        overflow: visible !important;
     }
     .obolochka .row{
         flex-direction: column-reverse;
@@ -66,7 +66,7 @@
         display: none;
     }
     .container{
-        overflow: visible;
+        overflow: visible !important;
         overflow-x: hidden;
         display: block;
     }
@@ -139,6 +139,7 @@
     .new_container{
         background: none !important;
     }
+
 }
 @media (min-width: 721px) {
     .desktop{
@@ -151,11 +152,12 @@
     #pop .links{
         position: static;
         top: 150px;
+        margin-top:250px;
         margin-right: 50px;
     }
     .content .row #opo .phone{
         top:110px;
-        height: auto;
+
     }
     .new_container{
         background: none !important;
@@ -163,16 +165,41 @@
     .container.new_container{
         padding-bottom: 0px !important;
     }
-    .content .row #opo .phone{
-        position: static !important;
+    .container{
+        padding-bottom: 0px !important;
+        height: 100vh;
+    }
+    .content .row #opo form{
+            position: absolute;
+
+        bottom: 110px;
+    }
+    .container{
+        padding-bottom: 0px !important;
+        height: 100vh;
     }
     .content .row #opo{
-        margin-top: 7.4%;
+        margin-top:110px;
+    }
+    .content{
+        position: absolute;
+        bottom: 0px;
     }
    .container.backgrounder{
        overflow-y: hidden;
 
    }
 
+
+
+}
+
+@media (min-width: 1500px) {
+    #i8{
+        width: 80% !important;
+    }
+
+}
+.study{
 
 }

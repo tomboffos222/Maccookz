@@ -14,7 +14,7 @@
 <body>
 	<div class="container backgrounder">
 		<div class="col-lg-12 d-phone text-center pt-5">
-			<img src="{{asset('images/Maccoo.svg')}}" alt="">
+
 		</div>
 		<div class="col-lg-6 col-12" id="fluid">
             @if ($errors->any())
@@ -35,16 +35,16 @@
 
 			<div class="regis">
 
-				<h1 class="desktop">Maccoo</h1>
-				<h1 class="d-phone">Войти</h1>
+                <img src="{{asset('images/MaccooBlack.svg')}}" alt="" style="margin-top:50px;">
+
 				<input type="text" name="phone" placeholder="Моб.телефон или эл. адрес">
 				<input type="password" name="password" placeholder="Пароль">
 				<button>Войти</button>
-				<a href="#">Забыли пароль?</a>
+				<a href="{{route('ForgetPage')}}">Забыли пароль?</a>
 			</div>
                 </form>
 			<div class="stakk">
-				<p>У вас еще нет аккаунта? <a href="#">Зарегистрироваться</a> </p>
+				<p>У вас еще нет аккаунта? <a href="{{route('Welcome')}}">Зарегистрироваться</a> </p>
 			</div>
 			<div class="links">
 				<a href="#">О НАС</a>

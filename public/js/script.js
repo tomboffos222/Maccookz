@@ -13,9 +13,11 @@ $('.owl-carousel').owlCarousel({
         0:{
             items:1,
             margin:10,
+
         },
         600:{
             items:3,
+
 
         },
         1000:{

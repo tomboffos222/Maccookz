@@ -13,18 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/register/page', function () {
     if (session()->has('user')){
-        return redirect()->route('Main');
+        $user = session()->get('user');
+        if ($user['status'] != 'wait') {
+            return redirect()->route('Main');
+        }
+        else{
+            return view('welcome');
+        }
     }
     else{
         return view('welcome');
     }
 
-});
+})->name('Welcome');
 
 Route::get('/register/','UserController@Register')->name('Register');
-Route::get('/login/page', 'UserController@LoginPage')->name('LoginPage');
+Route::get('/', 'UserController@LoginPage')->name('LoginPage');
 Route::get('login/', 'UserController@Login')->name('Login');
 Route::get('/player', function () {
     $user = session()->get('user');
@@ -34,7 +40,10 @@ Route::get('/player', function () {
 
     return view('player')->with(compact('video', 'mime', 'title','user'));
 });
-
+Route::get('forget/page/','UserController@ForgetPage')->name('ForgetPage');
+Route::get('forget/password/','UserController@ForgetPassword')->name('ForgetPassword');
+Route::get('password/set/{id?}','UserController@PasswordSet')->name('PasswordSet');
+Route::get('new/password/','UserController@NewPassword')->name('NewPassword');
 Route::get('/free_videos/{filename}', function ($filename) {
     // Pasta dos videos.
     $videosDir = public_path('/streams/');
@@ -50,6 +59,8 @@ Route::get('/free_videos/{filename}', function ($filename) {
     return response("File doesn't exists", 404);
 });
 Route::middleware(['userCheck'])->group(function () {
+
+    Route::get('user/approve/{id}','UserController@ApproveUser')->name('ApproveUser');
     Route::get('edit/profile','UserController@EditProfile')->name('EditProfile');
     Route::get('my_course/{id?}','UserController@MyCourse')->name('MyCourse');
     Route::post('/course/category/add','UserController@CategoryCourseAdd')->name('CategoryCourseAdd');
@@ -62,6 +73,7 @@ Route::middleware(['userCheck'])->group(function () {
     Route::get('add/course/', 'UserController@AddCourse')->name('AddCourse');
     Route::post('/course/add/free', 'UserController@FreeCourse')->name('FreeCourse');
     Route::get('account/{id?}','UserController@AccountView')->name('AccountView');
+    Route::get('user/{name?}','UserController@UserView')->name('UserView');
     Route::get('add/friend/{id?}','UserController@AddFriend')->name('AddFriend');
     Route::get('events/','UserController@Events')->name('Events');
     Route::get('delete/friend/{id?}','UserController@DeleteFriend')->name('DeleteFriend');
@@ -69,6 +81,26 @@ Route::middleware(['userCheck'])->group(function () {
     Route::get('/main/', 'UserController@Main')->name('Main');
     Route::get('buy/course/{id?}','UserController@BuyCourse')->name('BuyCourse');
     Route::get('/view/course/{id?}','UserController@ViewCourse')->name('ViewCourse');
+
+    // Online stream
+    Route::get('/stream/{id?}', 'StreamController@stream')->name('Streamer');
+    Route::get('/view/stream/{id?}', 'StreamController@viewStream')->name('ViewStream');
+
+
+     // Chat
+    Route::get('/chat/{id?}', 'ChatController@chatList')->name('ChatList');
+    Route::get('new/exp/chat','UserController@ExpChat')->name('ExpChat');
+    Route::get('/conf/{id?}', 'ChatController@conf')->name('conf');
+    Route::post('/chat_create', 'ChatController@chatCreate')->name('chatCreate');
+    // Delete
+    Route::get('delete/course/{id?}','UserController@DeleteCourse')->name('DeleteCourse');
+    Route::get('delete/free_course/{id?}','UserController@DeleteFreeCourse')->name('DeleteFreeCourse');
+    Route::get('delete/video/{id?}','UserController@DeleteVideo')->name('DeleteVideo');
+    //Edit
+
+    Route::post('edit/course/','UserController@EditCourse')->name('EditCourse');
+    Route::post('edit/free_course','UserController@EditFreeCourse')->name('EditFreeCourse');
+    Route::post('edit/course/video','UserController@EditCourseVideo')->name('EditCourseVideo');
 
     Route::get('profile/', 'UserController@Profile')->name('Profile');
     Route::post('edit/account/','UserController@EditAccount')->name('EditAccount');

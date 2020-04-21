@@ -15,8 +15,8 @@ class CreateUserFriendOperationsTable extends Migration
     {
         Schema::create('user_friend_operations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('owner_id');
-            $table->bigInteger('friend_id');
+            $table->bigInteger('owner_id')->unsigned();
+            $table->bigInteger('friend_id')->unsigned();
             $table->string('status');
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('friend_id')->references('id')->on('users')->onDelete('cascade');

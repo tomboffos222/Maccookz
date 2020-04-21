@@ -15,7 +15,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="col-lg-12 pt-5 pb-5">
+
+    <div class="col-lg-12 pt-3 pb-3 ">
         <img src="images/MaccooBlack.svg" alt="">
     </div>
 	  <div class="container">
@@ -32,20 +33,28 @@
 
                     @endphp
 
-                    @if($loop->index == 0 || $loop->index == 10 )
+
+                    @if($loop->index == 0  )
                         <div class="wrapper">
-                            <video  style="" data-toggle="modal" data-target="#modal_{{$video->id}}">
-                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
+
+                            <video playsinline preloader="yes" poster="{{ $video->img_path }}"  style="" data-toggle="modal" class="video" data-target="#modal_{{$video->course_id}}">
+                                <source src="{!! $video->video_path !!}" >
+
                             </video>
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                            <p class="text_on_video">
+                                {{mb_strimwidth($video->title,0,40)}}
+
+                            </p>
+                            <div class="modal fade" id="modal_{{$video->course_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
+                                            <video playsinline preloader="yes" controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
+                                                <source src="{!! $video->video_path !!}" >
                                             </video>
                                         </div>
                                         <div class="modal-footer"  style="justify-content: flex-start">
+
 
                                             <div class=" course_author">
                                                 @if($video['avatar'] == null)
@@ -54,11 +63,17 @@
                                                     <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
                                                 @endif
                                             </div>
-                                            <div class="">
-                                                {{$video->name}}
+                                            <a href="{{route('AccountView',$video->id)}}" class="text_dark">
+                                            <div class="text-black-50 text_desc">
+                                                <b>{{$video->name}}</b>
                                                 <br>
-                                                {{$video->login}}
+                                                @if(strlen($video->title) > 38)
+                                                    {{mb_strimwidth($video->title,0,38)}}..
+                                                @else
+                                                    {{$video->title}}
+                                                @endif
                                             </div>
+                                            </a>
 
                                         </div>
                                     </div>
@@ -66,18 +81,26 @@
                             </div>
                         </div>
 
-                        @elseif($loop->index == 9 || $loop->index ==11)
+                        @elseif($loop->index == 9 )
                         <div class="wrapper wrapper1">
-                            <video  style="" data-toggle="modal" data-target="#modal_{{$video->id}}">
-                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
+
+                            <video playsinline preloader="yes" poster="{!! $video->img_path !!}"  style="" data-toggle="modal" data-target="#modal_{{$video->course_id}}">
+                                <source src="{!! $video->video_path !!}" >
                             </video>
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                            <p class="text_on_video">
+                                {{mb_strimwidth($video->title,0,40)}}
+
+                            </p>
+
+
+                            <div class="modal fade" id="modal_{{$video->course_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
+                                            <video playsinline preloader="yes" controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
+                                                <source src="{!! $video->video_path !!}" >
                                             </video>
+
                                         </div>
                                         <div class="modal-footer"  style="justify-content: flex-start">
 
@@ -88,275 +111,47 @@
                                                     <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
                                                 @endif
                                             </div>
-                                            <div class="">
-                                                {{$video->name}}
+                                            <a href="{{route('AccountView',$video->id)}}" class="text_dark">
+                                            <div class="text_desc">
+                                                <b>{{$video->name}}</b>
                                                 <br>
-                                                {{$video->login}}
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    @elseif($loop->index == 1  )
-
-
-                        <div class="image-wrapper image-wrapper0">
-                            <img src="{!! $video->img_path !!}" class="player_{{$video->id}}  active" alt="" height="200" width="100%"  data-toggle="modal" data-target="#modal_{{$video->id}}" >
-
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
-                                            </video>
-                                        </div>
-                                        <div class="modal-footer"  style="justify-content: flex-start">
-
-                                            <div class=" course_author">
-                                                @if($video['avatar'] == null)
-                                                    <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
+                                                @if(strlen($video->title) > 38)
+                                                {{mb_strimwidth($video->title,0,38)}}..
                                                 @else
-                                                    <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
+                                                {{$video->title}}
                                                 @endif
                                             </div>
-                                            <div class="">
-                                                {{$video->name}}
-                                                <br>
-                                                {{$video->login}}
-                                            </div>
+                                            </a>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @elseif($loop->index == 5  )
-
-
-                        <div class="image-wrapper image-wrapper01">
-                            <img src="{!! $video->img_path !!}" class="player_{{$video->id}}  active" alt="" height="200" width="100%"  data-toggle="modal" data-target="#modal_{{$video->id}}" >
-
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
-                                            </video>
-                                        </div>
-                                        <div class="modal-footer"  style="justify-content: flex-start">
-
-                                            <div class=" course_author">
-                                                @if($video['avatar'] == null)
-                                                    <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                                                @else
-                                                    <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
-                                                @endif
-                                            </div>
-                                            <div class="">
-                                                {{$video->name}}
-                                                <br>
-                                                {{$video->login}}
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @elseif($loop->index == 2 )
 
 
 
-                        <div class="image-wrapper image-wrapper1">
-                            <img src="{!! $video->img_path !!}" class="player_{{$video->id}}  active" alt="" height="200" width="100%"  data-toggle="modal" data-target="#modal_{{$video->id}}" >
 
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
-                                            </video>
-                                        </div>
-                                        <div class="modal-footer"  style="justify-content: flex-start">
-
-                                            <div class=" course_author">
-                                                @if($video['avatar'] == null)
-                                                    <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                                                @else
-                                                    <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
-                                                @endif
-                                            </div>
-                                            <div class="">
-                                                {{$video->name}}
-                                                <br>
-                                                {{$video->login}}
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @elseif($loop->index == 6 )
-
-
-
-                        <div class="image-wrapper image-wrapper11">
-                            <img src="{!! $video->img_path !!}" class="player_{{$video->id}}  active" alt="" height="200" width="100%"  data-toggle="modal" data-target="#modal_{{$video->id}}" >
-
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
-                                            </video>
-                                        </div>
-                                        <div class="modal-footer"  style="justify-content: flex-start">
-
-                                            <div class=" course_author">
-                                                @if($video['avatar'] == null)
-                                                    <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                                                @else
-                                                    <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
-                                                @endif
-                                            </div>
-                                            <div class="">
-                                                {{$video->name}}
-                                                <br>
-                                                {{$video->login}}
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @elseif($loop->index == 3 )
-
-
-
-                        <div class="image-wrapper image-wrapper2">
-                            <img src="{!! $video->img_path !!}" class="player_{{$video->id}}  active" alt="" height="200" width="100%"  data-toggle="modal" data-target="#modal_{{$video->id}}" >
-
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
-                                            </video>
-                                        </div>
-                                        <div class="modal-footer"  style="justify-content: flex-start">
-
-                                            <div class=" course_author">
-                                                @if($video['avatar'] == null)
-                                                    <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                                                @else
-                                                    <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
-                                                @endif
-                                            </div>
-                                            <div class="">
-                                                {{$video->name}}
-                                                <br>
-                                                {{$video->login}}
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @elseif($loop->index == 7 )
-
-
-
-                        <div class="image-wrapper image-wrapper21">
-                            <img src="{!! $video->img_path !!}" class="player_{{$video->id}}  active" alt="" height="200" width="100%"  data-toggle="modal" data-target="#modal_{{$video->id}}" >
-
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
-                                            </video>
-                                        </div>
-                                        <div class="modal-footer"  style="justify-content: flex-start">
-
-                                            <div class=" course_author">
-                                                @if($video['avatar'] == null)
-                                                    <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                                                @else
-                                                    <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
-                                                @endif
-                                            </div>
-                                            <div class="">
-                                                {{$video->name}}
-                                                <br>
-                                                {{$video->login}}
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @elseif($loop->index == 4 )
-
-
-
-                        <div class="image-wrapper image-wrapper3 ">
-                            <img src="{!! $video->img_path !!}" class="player_{{$video->id}}  active" alt="" height="200" width="100%"  data-toggle="modal" data-target="#modal_{{$video->id}}" >
-
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
-                                            </video>
-                                        </div>
-                                        <div class="modal-footer"  style="justify-content: flex-start">
-
-                                            <div class=" course_author">
-                                                @if($video['avatar'] == null)
-                                                    <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                                                @else
-                                                    <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
-                                                @endif
-                                            </div>
-                                            <div class="">
-                                                {{$video->name}}
-                                                <br>
-                                                {{$video->login}}
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @elseif($loop->index == 8 )
+                    @else
 
 
 
                         <div class="image-wrapper image-wrapper31 ">
-                            <img src="{!! $video->img_path !!}" class="player_{{$video->id}}  active" alt="" height="200" width="100%"  data-toggle="modal" data-target="#modal_{{$video->id}}" >
+                            <div class="videoMainer" style="display: block;background-image: url('{!! $video->img_path !!}');"  data-toggle="modal" data-target="#modal_{{$video->course_id}}">
+                                <div>
 
-                            <div class="modal fade" id="modal_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="modal_{{$video->course_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered  " role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            <video controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
-                                                <source src="{!! $video->video_path !!}" type='video/ogg; codecs="theora, vorbis"'>
+                                            <video playsinline preloader="yes" controls="controls" controlsList="nodownload" style="width: 100%;height: 400px;">
+                                                <source src="{!! $video->video_path !!}" >
                                             </video>
                                         </div>
                                         <div class="modal-footer"  style="justify-content: flex-start">
@@ -368,11 +163,18 @@
                                                     <img src="{!! $video->avatar !!}" alt="" class="profile-avatar search-avatar face">
                                                 @endif
                                             </div>
-                                            <div class="">
-                                                {{$video->name}}
+                                            <a href="{{route('AccountView',$video->id)}}" class="text_dark">
+                                            <div class="text_desc">
+
+                                                <b>{{$video->name}}</b>
                                                 <br>
-                                                {{$video->login}}
+                                                @if(strlen($video->title) > 38)
+                                                    {{mb_strimwidth($video->title,0,38)}}..
+                                                @else
+                                                    {{$video->title}}
+                                                @endif
                                             </div>
+                                            </a>
 
                                         </div>
                                     </div>
@@ -391,9 +193,6 @@
 
 
 	  </div>
-          <div class="col-lg-12">
-              {{$videos->links()}}
-          </div>
 
 
 	  </div>
@@ -403,18 +202,34 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <style>
+        .videoMainer{
+            width: 100%;
+            margin-left: 0px;
+            height: 100%;
+            border-radius: 0px !important;
+            background-size: cover;
+            background-position: center  left;
+            background-repeat: no-repeat;
+        }
+        .videoMainer> div{
+            border-radius: 0px;
+        }
         .col-lg-12.left{
             display: grid;
 
 
-            grid-template-columns: 1.5fr 1fr 1fr;
-            grid-template-rows: 400px 250px 250px;
 
 
-            grid-auto-flow: column;
+            grid-auto-rows: 300px;
+
+
+
             margin-bottom: 120px;
 
 
+        }
+        .container{
+            max-width: 95%;
         }
         .image_wrapper{
             height: 200px;
@@ -423,55 +238,13 @@
 
 
         }
-        .image-wrapper0 {
-
-
-            margin: 5px;
-
-            grid-column: 2;
-            grid-row: 1;
-
-        }
-        .image-wrapper2 {
-
-
-            margin: 5px;
-
-            grid-column: 3;
-            grid-row: 1;
-
-        }
-        .image-wrapper11.image-wrapper{
-            grid-column: 2;
-            grid-row: 3;
-            margin: 5px !important;
-        }
-        .image-wrapper3 {
-
-
-            margin: 5px;
-
-            grid-column: 3;
-            grid-row: 2;
-
-        }
-        .image-wrapper1{
-
-
-            margin: 5px;
-
-            grid-column: 2;
-            grid-row: 2;
-
-        }
 
         .wrapper{
             margin: 5px;
             grid-row: 1/3;
         }
-        .image-wrapper.image-wrapper01{
-            grid-row: 3;
-            grid-column: 1;
+        .image-wrapper{
+
             margin: 5px !important;
         }
          video{
@@ -489,49 +262,138 @@
             height: 100%;
         }
 
-        .col-lg-12.left img:nth-child(odd) {
-            padding-left:5px;
 
-        }
 
         .col-lg-12.left video{
             width: 100% !important;
-            grid-column-start: 1;
-            grid-column-end: 2;
-            grid-row-start: row1-start;
-            grid-row-end: 2;
 
 
 
         }
-        .image-wrapper21.image-wrapper{
-            grid-column: 1;
-            grid-row: 4;
-            margin: 5px !important;
-        }
-        .image-wrapper31.image-wrapper{
-            grid-column: 2;
-            grid-row: 4;
-            margin: 5px !important;
-        }
+
         .wrapper.wrapper1{
             grid-column: 3 !important;
             grid-row: 3/5 !important;
         }
         @media (max-width: 720px) {
+            .videoMainer{
+                width: 100%;
+                margin-left: 0px;
+                height: 100%;
+                border-radius: 0px !important;
+                background-size: cover;
+                background-position: center  center;
+                background-repeat: no-repeat;
+            }
             .col-lg-12.left{
-                grid-template-rows: 1fr 0.5fr 0.5fr ;
+                grid-template-columns: repeat(2, 1fr);
+                column-count: 2;
+                padding-left: 5px;
+                padding-right: 5px;
+
+
+                grid-auto-rows: 150px;
+            }
+            .wrapper.wrapper1{
+
+                grid-column: 2 !important;
+                grid-row: 3/5 !important;
+            }
+            .wrapper{
+                margin:1px;
+                position: relative;
+                top:25px;
+            }
+            .image-wrapper{
+                margin: 1px !important;
+            }
+            .wrapper p {
+                font-size: 9px ;
+            }
+            .container{
+                max-width: 100%;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+        }
+        @media (min-width: 721px) {
+            .col-lg-12.left{
+                 grid-template-columns: repeat(3, 1fr);
             }
 
 
+        }
+        .text_dark .text-black-50 , .text_dark div{
+            color: #000;
 
         }
+        .text_dark:hover{
+            text-decoration: none;
+        }
 
+        .text_on_video{
+            position: relative;
+
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: bold;
+            font-size: 19px;
+            line-height: 22px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #fff;
+            z-index: 10;
+            bottom:70px;
+            left: 15px;
+            width: 100%;
+
+            padding-right: 15%;
+        }
+        .modal-backdrop{
+
+            background-color: #000;
+        }
+        .modal-backdrop.show{
+            opacity: .7 !important;
+        }
+        .modal-backdrop.in{
+            opacity: 1 !important;
+        }
+        @media (max-width: 720px) {
+            .modal-backdrop{
+
+                background-color: #000;
+            }
+            .modal-backdrop.in{
+                opacity: 1 !important;
+            }
+            .text_desc{
+                font-size: 14px;
+            }
+            .text_desc b{
+                font-size: 1rem;
+            }
+
+
+        }
+        .container{
+            overflow: hidden;
+        }
+        .modal-body{
+            padding: 0px;
+        }
+        .modal-footer{
+            border-top:none;
+        }
     </style>
     <script>
 
         $(document).ready(function() {
-            $(" video").on("mouseover", function(event) {
+
+
+
+            $("video").on("mouseover", function(event) {
                 this.play();
 
             }).on('mouseout', function(event) {
@@ -539,5 +401,6 @@
 
             });
         })
+
     </script>
 @endsection

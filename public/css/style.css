@@ -3,11 +3,10 @@
 	padding: 0;
 }
 body {
-	width: 100%;
-	height: 100%;
+
 	background-image: url(../images/sas.png);
 	background-repeat: no-repeat;
-	overflow: hidden;
+	overflow: hidden !important;
 	background-size: cover;
 }
 .container {
@@ -17,7 +16,7 @@ body {
 	width: 100%;
 	height: 100%;
 	background: #00000061;
-	overflow: hidden;
+	overflow: hidden !important;
 
 }
 .col-lg-12 h1 {
@@ -33,7 +32,7 @@ body {
 .content .row #opo .phone {
 	background-image: url(../images/iphonex1.png);
 	width: 390px;
-	height: 750px;
+
 	position: relative;
 	top:75px;
 	background-repeat: no-repeat;

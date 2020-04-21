@@ -19,36 +19,47 @@
         @foreach($friendships as $friendship)
 		<div class="col-lg-12" id="suck">
 			<div class="face">
-                @if($friendship['avatar'] == null)
-                    <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                @else
-                    <img src="{!! $friendship->avatar !!}" alt="" class="profile-avatar face">
-                @endif
+                <a href="{{route('AccountView',$friendship['user_id'])}}">
+                    @if($friendship['avatar'] == null)
+                        <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
+                    @else
+                        <img src="{!! $friendship->avatar !!}" alt="" class="profile-avatar face">
+                    @endif
+                </a>
+
 			</div>
 			<div class="text">
-				<h6>{{$friendship->name}}</h6>
+                <a href="{{route('AccountView',$friendship['user_id'])}} ">
+                    <h6>{{$friendship->name}} </h6>
+                </a>
+
 				<p>Заявка на дружбу <span>({{$friendship->created_at}})</span></p>
 			</div>
 			<div class="kenopka">
-				<button onclick="window.location.href='{{route('AccountView',$friendship['id'])}}'">Посмотреть</button>
+				<button onclick="window.location.href='{{route('AccountView',$friendship['user_id'])}}'">Посмотреть</button>
 			</div>
 		</div>
         @endforeach
         @foreach($purchases as $purchase)
+
             <div class="col-lg-12" id="suck">
                 <div class="face">
-                    @if($purchase['avatar'] == null)
-                        <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                    @else
-                        <img src="{!! $purchase->avatar !!}" alt="" class="profile-avatar face">
-                    @endif
+                    <a href="{{route('AccountView',$purchase['user_id'])}}">
+                        @if($purchase['avatar'] == null)
+                            <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
+                        @else
+                            <img src="{!! $purchase->avatar !!}" alt="" class="profile-avatar face">
+                        @endif
+                    </a>
                 </div>
                 <div class="text">
-                    <h6>{{$purchase->name}}</h6>
+                    <a href="{{route('AccountView', $purchase['user_id'])}}">
+                        <h6>{{$purchase->name}}</h6>
+                    </a>
                     <p>Покупка курса {{$purchase->title}} за {{$purchase->price}}  <span>({{$purchase->created_at}})</span> </p>
                 </div>
                 <div class="kenopka">
-                    <button onclick="window.location.href='{{route('AccountView',$purchase['id'])}}'">Посмотреть</button>
+                    <button onclick="window.location.href='{{route('AccountView',$purchase['user_id'])}}'">Посмотреть</button>
                 </div>
             </div>
         @endforeach

@@ -16,39 +16,43 @@
 	<link rel="stylesheet" href="{{asset('css/respons.css')}}">
 </head>
 <body>
-	<div class="container container_course">
+	<div class="container container_course " style="padding-bottom: 0px !important;">
 		<div class="profile">
 			<div class="col-lg-4">
-				<div class="">
-                    @if($user['avatar'] == null)
-                        <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
-                    @else
-                        <img src="{!! $user->avatar !!}" alt="" class="profile-avatar search-avatar face">
-                    @endif
-                    <div class="text-center ml-auto">
-                        <h2 class="mt-2">{{$user->name}}</h2>
-                        <h5 class="text-dark">
-                            {{$user->login}}
-                        </h5>
+                    <div class="">
+                        <div class="imager">
+                            @if($user['avatar'] == null)
+                                <img src="{{asset('images/image_avatar.svg')}}" alt="" class="face">
+                            @else
+                                <img src="{!! $user->avatar !!}" alt="" class="profile-avatar search-avatar face">
 
+                            @endif
+                            <a href="{{route('ViewStream',$course->id)}}" class="play_button_v2" >
+                                <img src="{{asset('images/play.png')}}"  alt="">
+                            </a>
+                        </div>
+
+                        <div class="text-center ml-auto">
+                            <h2 class="mt-2">{{$user->name}}</h2>
+                            <h5 class="text-dark">
+                                {{$user->login}}
+                            </h5>
+
+                        </div>
                     </div>
-                </div>
+
 			</div>
 			<div class="col-lg-8" id="i8">
 				<div class="info">
 					<h1>{{$course->title}}</h1>
 					<span>{{$course->description}}</span>
 
-                    <div class="text-center w-50 online_translation_one p-3 mt-3 mb-3" style="background: #3B3B3B;">
-                        <img src="{{asset('images/tube.svg')}}" alt="" class="mb-4">
-                        <h5 class="text-white text-center">
-                            Онлайн трансляция <br>
-                            скоро!
-                        </h5>
-                    </div>
+
+
+
 
 				</div>
-
+                <div id="courseId" class="" style="display:none;">{{ $course->id }}</div>
 			</div>
 		</div>
 
@@ -59,38 +63,34 @@
             <div class="col-lg-12" id="i8">
                 <div class="tabs">
                     <div class="mainer">
-                        <div class="tabs_panel">
-                            @foreach($categories as $category)
-                                <div class="tabs_control ">{{$category->name}}</div>
-                            @endforeach
 
 
-
-
-
-
-
-
-
-                        </div>
-
-                        @foreach($categories as $category)
                          <div class="tabs_page ">
                             <div class="row">
-                                @foreach($videos as $video)
-                                    @if($video['category_id'] == $category['id'])
-                                        <div class="col-lg-4 course_video col-12" style="display: block;"  data-toggle="modal" data-target="#modalVideo">
+                                <div class="col-lg-10   ">
+                                    <div class="row">
+                                        @foreach($videos as $video)
 
-                                            <img src="{{$video->image_path}}" class="image_of_video" alt="" height="200" width="100%" style="width: 100%;height: 250px;    ">
+                                            <div class="col-lg-4 course_video col-12" style="display: block;"  data-toggle="modal" data-target="#modalVideo_{{$video->id}}">
+                                                <div class="seven" style="background-image: url('{!! $video->image_path !!}');background-size: cover;">
+                                                    <div class="seven_div" style="background-color: rgba(0,0,0,0.24)">
+                                                        <span>{{$video->title}}</span>
+                                                        <img src="{{asset('images/play.png')}}" class="play_button" alt="">
+
+
+                                                    </div>
+                                                </div>
 
 
 
-                                            <div class="modal fade" id="modalVideo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                                            </div>
+                                            <div class="modal fade" id="modalVideo_{{$video->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-body">
                                                             <video controls="controls" style="width: 100%;height: 400px;">
-                                                                <source src="{{$video->video_path}}" type='video/ogg; codecs="theora, vorbis"'>
+                                                                <source src="{{$video->video_path}}" type='video/mp4'>
                                                             </video>
                                                         </div>
                                                         <div class="modal-footer"  style="justify-content: flex-start !important;">
@@ -109,23 +109,23 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endif
-
-                                @endforeach
 
 
-
-                                <div class="col-lg-12">
-
+                                        @endforeach
+                                    </div>
                                 </div>
 
+
+
+                                <div class="col-lg-4">
+
+                                </div>
 
 
                             </div>
 
                         </div>
-                        @endforeach
+
 
 
                     </div>
@@ -155,6 +155,71 @@
   </div>
 </div>
 
+    <script src="{{asset('js/socket.io.js')}}"></script>
+    <script type="text/javascript">
+        function viewStream() {
+            let courseId = document.getElementById('courseId').innerText;
+            let peerConnection;
+            const config = {
+                iceServers: [
+                    {
+                        urls: ["stun:stun.l.google.com:19302"]
+                    }
+                ]
+            };
+            $('#myModal1').modal('show');
+
+            const socket = io('https://maccoo.kz:4000');
+            const video = document.querySelector("video");
+
+            socket.on("offer", (id, description) => {
+                console.log('Watcher offer - ' + id);
+                peerConnection = new RTCPeerConnection(config);
+                peerConnection
+                    .setRemoteDescription(description)
+                    .then(() => peerConnection.createAnswer())
+                    .then(sdp => peerConnection.setLocalDescription(sdp))
+                    .then(() => {
+                        socket.emit("answer", id, peerConnection.localDescription);
+                    });
+                peerConnection.ontrack = event => {
+                    video.srcObject = event.streams[0];
+                };
+                peerConnection.onicecandidate = event => {
+                    if (event.candidate) {
+                        socket.emit("candidate", id, event.candidate);
+                    }
+                };
+            });
+
+            //
+            socket.on("candidate", (id, candidate) => {
+                console.log('Watcher candidate - ' + id);
+                peerConnection
+                    .addIceCandidate(new RTCIceCandidate(candidate))
+                    .catch(e => console.error(e));
+            });
+
+            socket.on("connect", () => {
+                socket.emit("watcher", courseId);
+            });
+
+            socket.on("broadcaster", () => {
+                // console.log(broadcaster);
+                socket.emit("watcher", courseId);
+            });
+
+            socket.on("disconnectPeer", () => {
+                peerConnection.close();
+            });
+
+            window.onunload = window.onbeforeunload = () => {
+                socket.close();
+            };
+        }
+
+
+    </script>
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
@@ -186,6 +251,26 @@
 
     </script>
     <style>
+
+        .play_button_v2{
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            bottom:32%;
+        }
+        .play_button_v2 img{
+            width: 40px;
+            height: 40px;
+        }
+        .imager{
+            margin-bottom: 20px;
+        }
+        .seven_div span{
+            position: absolute;
+            bottom:20px;
+            left:40px;
+            width: auto;
+        }
         .container_course:nth-child(2){
             margin-bottom: 50px;
         }
@@ -199,6 +284,18 @@
 
             height: 250px;
             margin-left: 0px;
+        }
+        .play_button{
+            width: 50px !important;
+            height: 50px !important;
+            margin-top: -30px;
+            margin-left: -25px;
+        }
+        .seven_div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
         }
         .tabs_panel{
             width: 100%;
@@ -218,7 +315,107 @@
             text-decoration: underline;
 
         }
+        .profile{
+
+        }
+        .container.container_new{
+            padding-bottom: 20px !important;
+        }
+        @media (min-width: 721px) {
+            .profile .col-lg-4{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+            }
+            .col-lg-4 .text-center.ml-auto{
+                margin-left: 0px !important;
+                margin-right: 10px;
+
+            }
+            .imager{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-flow: column;
+
+            }
+            .profile .col-lg-4{
+                align-items: flex-end;
+            }
+            #i8{
+                padding-right: 20%;
+            }
+
+
+        }
+        .info{
+            padding-bottom: 50px !important;
+        }
+        .seven{
+            width: 100% !important;
+        }
+        @media (max-width: 720px) {
+
+            .play{
+                margin:15px 0px !important;
+            }
+            .mainer .tabs_page .col-lg-4{
+                margin-top: 0px;
+                padding-right: 0px;
+            }
+            .mainer .tabs_page .col-lg-4:nth-child(1){
+                margin-top:25px;
+            }
+            .seven{
+                margin-right: 0px !important;
+                width: 100%;
+            }
+            .row{
+
+            }
+            .mainer{
+                padding-bottom: 150px;
+            }
+            .profile{
+                flex-direction: column;
+            }
+            .profile h2{
+                font-size: 1.5rem;
+            }
+            .profile .col-lg-4{
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+            .profile .col-lg-4 .text-center.ml-auto{
+                margin-left: 0px !important;
+            }
+            .play_button_v2{
+                width: 30px;
+                height: 30px;
+                position:relative;
+                top:40px;
+                right: 50%;
+            }
+            .play_button_v2 img{
+                width: 30px;
+                height: 30px;
+            }
+            .course_video{
+                width: 100%;
+            }
+
+
+
+
+        }
+
+
     </style>
+    <script>
+
+    </script>
 @endsection
 </body>
 </html>

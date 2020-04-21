@@ -18,6 +18,7 @@ class CreateCourseVideosTable extends Migration
             $table->bigInteger('course_id')->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->integer('views');
+            $table->string('title',255);
             $table->text('video_path');
             $table->text('image_path');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');

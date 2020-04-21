@@ -50,12 +50,24 @@
                 width: 75px;
                 height: 75px;
             }
+            .col-lg-12{
+                align-items: stretch;
+            }
             @media (max-width: 720px) {
                 .col-lg-12 input{
-                    width: 300px    ;
+                    width: 100%;
+                }
+                form{
+                    width: 100%;
+                }
+                #search{
+                    width: 100%;
                 }
 
 
+            }
+            #notView{
+                display: none;
             }
         </style>
     @endsection

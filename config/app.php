@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+         App\Providers\ChatViewServiceProvider::class,
 
         /*
          * Application Service Providers...

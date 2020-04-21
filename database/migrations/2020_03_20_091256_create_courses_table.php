@@ -23,8 +23,10 @@ class CreateCoursesTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->text('description');
+            $table->integer('purchases');
             $table->integer('price');
             $table->string('currency');
+            $table->integer('views');
             $table->integer('bill');
 
             $table->string('image_of_course');
